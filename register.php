@@ -33,45 +33,18 @@
     }
 
     if (!$incomplete) {
-      // Create hashed password to store
-      $hashed_password = password_hash($user['password'], PASSWORD_BCRYPT);
+      $registeredUsername = isExistingUsername($user['username'], $connection);
+      $registeredEmail = isExistingEmail($user['email'], $connection);
 
-      // Insert new entry into the db
-      $sql = "INSERT INTO members ";
-      $sql .= "(username, email, favouriteTeam, first_name, last_name, password) ";
-      $sql .= "VALUES (";
-      $sql .= "'" . $user['username'] . "',";
-      $sql .= "'" . $user['email'] . "',";
-      $sql .= "'" . $user['favTeam'] . "',";
-      $sql .= "'" . $user['first-name'] . "',";
-      $sql .= "'" . $user['last-name'] . "',";
-      $sql .= "'" . $hashed_password . "'";
-      $sql .= ")";
-
-      $result = mysqli_query($connection, $sql);
-
-      // Check if successful
-      if ($result) {
-        echo "Your registration was successful";
+      if (!$registeredEmail && !$registeredUsername) {
+        registernewUser($user, $connection);
       } else {
-        echo mysqli_error($connection);
+        $errors[] = $registeredUsername;
+        $errors[] = $registeredEmail;
       }
-
-      mysqli_close($connection);
-
-      // Assign session variables
-      $_SESSION['username'] = $user['username'];
-
+    }
   }
-
-  }
-
-
-
-
 ?>
-
-
 
 <html>
   <head>
@@ -81,7 +54,16 @@
   <body>
 
     <nav>
-
+      <ul>
+        <?php
+          // Check if user is logged in
+          if (empty($_SESSION['username'])) {
+            echo "<li><a href=\"login.php\">Login</a></li>";
+          } else {
+            echo "<li><a href=\"logout.php\">Logout</a></li>";
+          }
+        ?>
+      </ul>
     </nav>
 
     <div>

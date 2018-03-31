@@ -40,4 +40,102 @@
 
   }
 
+  function logInUserByUsername($username, $password, $connection) {
+    $errors = "";
+    // Select the user from the database
+    $sql = "SELECT * FROM members ";
+    $sql .= "WHERE username='" . $username . "' ";
+    $sql .= "LIMIT 1";
+
+    $result = mysqli_query($connection, $sql);
+    $user = mysqli_fetch_assoc($result);
+    mysqli_free_result($result);
+
+    if ($user) {
+      // Verify hashed password in DB
+      if (password_verify($password, $user['password'])) {
+        session_regenerate_id();
+        // Assign session variables and redirect
+        $_SESSION['username'] = $user['username'];
+        $_SESSION['email'] = $user['email'];
+        $_SESSION['last-login'] = time();
+
+      } else {
+        $errors = "Incorrect password";
+      }
+    } else {
+      $errors = "Incorrect username";
+    }
+
+    return $errors;
+
+  }
+
+  function isExistingEmail($email, $connection) {
+    $errors = "";
+    // Check if email exists in database
+    $sql = "SELECT * FROM members ";
+    $sql .= "WHERE email='" . $email . "' ";
+
+    $result = mysqli_query($connection, $sql);
+    if (mysqli_num_rows($result) > 0) {
+      $newEmail = false;
+      $errors = "This email has already been registered";
+    } else {
+      $newEmail = true;
+    }
+    mysqli_free_result($result);
+
+    return $errors;
+  }
+
+  function isExistingUsername($username, $connection) {
+    $errors = "";
+    // Check if username exists in database
+    $sql = "SELECT * FROM members ";
+    $sql .= "WHERE username='" . $username . "' ";
+
+    $result = mysqli_query($connection, $sql);
+    if (mysqli_num_rows($result) > 0) {
+      $newUsername = false;
+      $errors = "This username has already been registered";
+    } else {
+      $newUsername = true;
+    }
+    mysqli_free_result($result);
+
+    return $errors;
+  }
+
+  function registernewUser($user, $connection) {
+    // Create hashed password to store
+    $hashed_password = password_hash($user['password'], PASSWORD_BCRYPT);
+
+    // Insert new entry into the db
+    $sql = "INSERT INTO members ";
+    $sql .= "(username, email, favouriteTeam, first_name, last_name, password) ";
+    $sql .= "VALUES (";
+    $sql .= "'" . $user['username'] . "',";
+    $sql .= "'" . $user['email'] . "',";
+    $sql .= "'" . $user['favTeam'] . "',";
+    $sql .= "'" . $user['first-name'] . "',";
+    $sql .= "'" . $user['last-name'] . "',";
+    $sql .= "'" . $hashed_password . "'";
+    $sql .= ")";
+
+    $result = mysqli_query($connection, $sql);
+
+    // Check if successful
+    if ($result) {
+      echo "Your registration was successful";
+    } else {
+      echo mysqli_error($connection);
+    }
+
+    mysqli_close($connection);
+
+    // Assign session variables
+    $_SESSION['username'] = $user['username'];
+  }
+
 ?>
