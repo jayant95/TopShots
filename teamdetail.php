@@ -59,16 +59,15 @@
   	
   	<?php 
 
-		while($stmt->fetch()){
-  			echo "<h1>".$teamname."</h1>";
-  			$name=$teamname;
-  		}
   	 ?>
 	<table>
-		<tr><th>Team</th><th>Wins</th><th>Losses</th><th>w_pct</th><th>efg_pct</th><th>off_rating</th><th>def_rating</th><th>ast_pct</th><th>ast_to</th></tr>
+
 		<?php 
 
 			while($stmt->fetch()){
+				echo "<h1>".$teamname."</h1>";
+  				$name=$teamname;
+  				echo "		<tr><th>Team</th><th>Wins</th><th>Losses</th><th>w_pct</th><th>efg_pct</th><th>off_rating</th><th>def_rating</th><th>ast_pct</th><th>ast_to</th></tr>";
 				echo "<tr><th class='teamname'><a href='teamdetail.php?teamID=".$teamID."'>".$teamname." </a> </th><th>  ".$wins."  </th><th>  ".$losses."</th><th>".$w_pct."  </th><th>  ".$efg_pct."  </th><th>  ".$off_rating."  </th><th>  ".$def_rating."  </th><th>  ".$ast_pct."  </th><th>  ".$ast_to."</th></tr>";
 			}
 		?>
