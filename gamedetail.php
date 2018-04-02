@@ -43,11 +43,15 @@
   	?>
 
 	<form action="" method="post">
-
 	<ul>
-		<li><a href="schedule_page.php?date=2017-01-31">Last day</a></li>
-		<li><a href="schedule_page.php?date=2017-02-01">Today</a></li>
-		<li><a href="schedule_page.php?date=2017-02-02">Next day</a></li>
+		<li><a href="teams.php">Teams</a></li>
+		<li><a href="players.php">Players</a></li>
+		<li><a href="schedule.php?date=2017-02-01">Schedule</a></li>
+	</ul>
+	<ul>
+		<li><a href="schedule.php?date=2017-01-31">Last day</a></li>
+		<li><a href="schedule.php?date=2017-02-01">Today</a></li>
+		<li><a href="schedule.php?date=2017-02-02">Next day</a></li>
 	</ul>
 
 	

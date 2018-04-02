@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 02, 2018 at 07:34 AM
+-- Generation Time: Apr 02, 2018 at 09:29 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -839,44 +839,45 @@ CREATE TABLE `teams` (
   `off_rating` float NOT NULL,
   `def_rating` float NOT NULL,
   `ast_pct` float NOT NULL,
-  `ast_to` float NOT NULL
+  `ast_to` float NOT NULL,
+  `shortname` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `teams`
 --
 
-INSERT INTO `teams` (`ID`, `name`, `wins`, `losses`, `w_pct`, `efg_pct`, `off_rating`, `def_rating`, `ast_pct`, `ast_to`) VALUES
-(1, 'Atlanta Hawks', 43, 39, 0.524, 0.504, 102.3, 103.1, 0.621, 1.5),
-(2, 'Boston Celtics', 53, 29, 0.646, 0.525, 108.6, 105.5, 0.653, 1.9),
-(3, 'Brooklyn Nets', 20, 62, 0.244, 0.507, 101.9, 108, 0.566, 1.29),
-(4, 'Charlotte Hornets', 36, 46, 0.439, 0.501, 106.4, 106.1, 0.611, 2.01),
-(5, 'Chicago Bulls', 41, 41, 0.524, 0.487, 104.6, 104.5, 0.584, 1.66),
-(6, 'Cleveland Cavaliers', 51, 31, 0.622, 0.547, 110.9, 108, 0.567, 1.66),
-(7, 'Dallas Mavericks', 33, 49, 0.402, 0.505, 103.7, 106.3, 0.574, 1.75),
-(8, 'Denver Nuggets', 40, 42, 0.488, 0.53, 110, 110.5, 0.615, 1.69),
-(9, 'Detroit Pistons', 37, 45, 0.451, 0.492, 103.3, 105.3, 0.53, 1.78),
-(10, 'Golden State Warriors', 67, 15, 0.817, 0.563, 113.2, 101.1, 0.705, 2.06),
-(11, 'Houston Rockets', 55, 27, 0.671, 0.545, 111.8, 106.4, 0.626, 1.67),
-(12, 'Indiana Pacers', 42, 40, 0.512, 0.516, 106.2, 106.3, 0.572, 1.63),
-(13, 'LA Clippers', 51, 31, 0.622, 0.537, 110.3, 105.8, 0.57, 1.74),
-(14, 'Los Angeles Lakers', 26, 56, 0.317, 0.501, 103.4, 110.6, 0.532, 1.38),
-(15, 'Memphis Grizzlies', 43, 39, 0.524, 0.491, 104.7, 104.5, 0.584, 1.65),
-(16, 'Miami Heat', 41, 41, 0.5, 0.512, 105.2, 104.1, 0.544, 1.58),
-(17, 'Milwaukee Bucks', 42, 40, 0.512, 0.527, 106.9, 106.4, 0.624, 1.73),
-(18, 'Minnesota Timberwolves', 31, 51, 0.378, 0.511, 108.1, 109.1, 0.6, 1.69),
-(19, 'New Orleans Pelicans', 34, 48, 0.415, 0.504, 103.3, 104.9, 0.582, 1.77),
-(20, 'New York Knicks', 31, 51, 0.378, 0.496, 104.7, 108.7, 0.551, 1.57),
-(21, 'Oklahoma City Thunder', 47, 35, 0.573, 0.5, 105, 105.1, 0.532, 1.4),
-(22, 'Orlando Magic', 29, 53, 0.353, 0.489, 101.2, 108, 0.58, 1.67),
-(23, 'Philadelphia 76ers', 28, 54, 0.341, 0.501, 100.7, 106.4, 0.631, 1.43),
-(24, 'Phoenix Suns', 24, 58, 0.293, 0.493, 103.9, 109.3, 0.491, 1.27),
-(25, 'Portland Trail Blazers', 41, 41, 0.5, 0.52, 107.8, 107.8, 0.534, 1.54),
-(26, 'Sacramento Kings', 32, 50, 0.39, 0.516, 104.6, 109.1, 0.594, 1.54),
-(27, 'San Antonio Spurs', 61, 21, 0.744, 0.524, 108.8, 100.9, 0.606, 1.77),
-(28, 'Toronto Raptors', 51, 31, 0.622, 0.517, 109.8, 104.9, 0.472, 1.46),
-(29, 'Utah Jazz', 51, 31, 0.622, 0.526, 107.4, 102.7, 0.544, 1.48),
-(30, 'Washington Wizards', 49, 33, 0.598, 0.528, 108.5, 106.9, 0.577, 1.68);
+INSERT INTO `teams` (`ID`, `name`, `wins`, `losses`, `w_pct`, `efg_pct`, `off_rating`, `def_rating`, `ast_pct`, `ast_to`, `shortname`) VALUES
+(1, 'Atlanta Hawks', 43, 39, 0.524, 0.504, 102.3, 103.1, 0.621, 1.5, 'ATL'),
+(2, 'Boston Celtics', 53, 29, 0.646, 0.525, 108.6, 105.5, 0.653, 1.9, 'BOS'),
+(3, 'Brooklyn Nets', 20, 62, 0.244, 0.507, 101.9, 108, 0.566, 1.29, 'BKN'),
+(4, 'Charlotte Hornets', 36, 46, 0.439, 0.501, 106.4, 106.1, 0.611, 2.01, 'CHA'),
+(5, 'Chicago Bulls', 41, 41, 0.524, 0.487, 104.6, 104.5, 0.584, 1.66, 'CHI'),
+(6, 'Cleveland Cavaliers', 51, 31, 0.622, 0.547, 110.9, 108, 0.567, 1.66, 'CLE'),
+(7, 'Dallas Mavericks', 33, 49, 0.402, 0.505, 103.7, 106.3, 0.574, 1.75, 'DAL'),
+(8, 'Denver Nuggets', 40, 42, 0.488, 0.53, 110, 110.5, 0.615, 1.69, 'DEN'),
+(9, 'Detroit Pistons', 37, 45, 0.451, 0.492, 103.3, 105.3, 0.53, 1.78, 'DET'),
+(10, 'Golden State Warriors', 67, 15, 0.817, 0.563, 113.2, 101.1, 0.705, 2.06, 'GSW'),
+(11, 'Houston Rockets', 55, 27, 0.671, 0.545, 111.8, 106.4, 0.626, 1.67, 'HOU'),
+(12, 'Indiana Pacers', 42, 40, 0.512, 0.516, 106.2, 106.3, 0.572, 1.63, 'IND'),
+(13, 'LA Clippers', 51, 31, 0.622, 0.537, 110.3, 105.8, 0.57, 1.74, 'LAC'),
+(14, 'Los Angeles Lakers', 26, 56, 0.317, 0.501, 103.4, 110.6, 0.532, 1.38, 'LAL'),
+(15, 'Memphis Grizzlies', 43, 39, 0.524, 0.491, 104.7, 104.5, 0.584, 1.65, 'MEM'),
+(16, 'Miami Heat', 41, 41, 0.5, 0.512, 105.2, 104.1, 0.544, 1.58, 'MIA'),
+(17, 'Milwaukee Bucks', 42, 40, 0.512, 0.527, 106.9, 106.4, 0.624, 1.73, 'MIL'),
+(18, 'Minnesota Timberwolves', 31, 51, 0.378, 0.511, 108.1, 109.1, 0.6, 1.69, 'MIN'),
+(19, 'New Orleans Pelicans', 34, 48, 0.415, 0.504, 103.3, 104.9, 0.582, 1.77, 'NOP'),
+(20, 'New York Knicks', 31, 51, 0.378, 0.496, 104.7, 108.7, 0.551, 1.57, 'NYK'),
+(21, 'Oklahoma City Thunder', 47, 35, 0.573, 0.5, 105, 105.1, 0.532, 1.4, 'OKC'),
+(22, 'Orlando Magic', 29, 53, 0.353, 0.489, 101.2, 108, 0.58, 1.67, 'ORL'),
+(23, 'Philadelphia 76ers', 28, 54, 0.341, 0.501, 100.7, 106.4, 0.631, 1.43, 'PHI'),
+(24, 'Phoenix Suns', 24, 58, 0.293, 0.493, 103.9, 109.3, 0.491, 1.27, 'PHX'),
+(25, 'Portland Trail Blazers', 41, 41, 0.5, 0.52, 107.8, 107.8, 0.534, 1.54, 'POR'),
+(26, 'Sacramento Kings', 32, 50, 0.39, 0.516, 104.6, 109.1, 0.594, 1.54, 'SAC'),
+(27, 'San Antonio Spurs', 61, 21, 0.744, 0.524, 108.8, 100.9, 0.606, 1.77, 'SAS'),
+(28, 'Toronto Raptors', 51, 31, 0.622, 0.517, 109.8, 104.9, 0.472, 1.46, 'TOR'),
+(29, 'Utah Jazz', 51, 31, 0.622, 0.526, 107.4, 102.7, 0.544, 1.48, 'UTA'),
+(30, 'Washington Wizards', 49, 33, 0.598, 0.528, 108.5, 106.9, 0.577, 1.68, 'WAS');
 
 --
 -- Indexes for dumped tables
