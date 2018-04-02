@@ -1,3 +1,13 @@
+<?php
+  // Starting the session and require other files
+  session_start();
+  require_once("includes/helper_functions.php");
+
+  // Switch from HTTPS to HTTP
+  HTTPStoHTTP();
+
+?>
+
 <html>
   <head>
     <title>Schedule Page</title>
@@ -23,9 +33,22 @@
   </head>
 
   <body>
+    
+    <nav>
+      <ul>
+        <?php
+          // Check if user is logged in
+          if (empty($_SESSION['username'])) {
+            echo "<li><a href=\"login.php\">Login</a></li>";
+          } else {
+            echo "<li><a href=\"logout.php\">Logout</a></li>";
+          }
+        ?>
+      </ul>
+    </nav>
 
   	<?php
-  		
+
   		$date='';
   		if($_GET['date']!=null){
   			$date=$_GET['date'];
@@ -33,7 +56,7 @@
   		$db=new mysqli('localhost','root','','topshots');
   		if(mysqli_connect_errno()){
 			echo '<p>Error: Could not connect to database.<br/> Please try again later. </p>';
-			exit;	
+			exit;
 		}
 
   	?>
@@ -52,7 +75,7 @@
 	</ul>
 
 	<table>
-		<?php 
+		<?php
 			$query="SELECT gameID,hometeam,guestteam,hometeamScore,guestteamScore,data FROM games WHERE data=?";
 			$stmt=$db->prepare($query);
 			$stmt->bind_param('s',$date);

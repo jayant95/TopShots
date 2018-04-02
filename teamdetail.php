@@ -1,3 +1,13 @@
+<?php
+  // Starting the session and require other files
+  session_start();
+  require_once("includes/helper_functions.php");
+
+  // Switch from HTTPS to HTTP
+  HTTPStoHTTP();
+
+?>
+
 <html>
   <head>
     <title>Teams Detail Page</title>
@@ -31,13 +41,26 @@
 
   <body>
 
+    <nav>
+      <ul>
+        <?php
+          // Check if user is logged in
+          if (empty($_SESSION['username'])) {
+            echo "<li><a href=\"login.php\">Login</a></li>";
+          } else {
+            echo "<li><a href=\"logout.php\">Logout</a></li>";
+          }
+        ?>
+      </ul>
+    </nav>
+    
   	<?php
   		$name='';
   		$teamID=$_GET['teamID'];
   		$db=new mysqli('localhost','root','','topshots');
   		if(mysqli_connect_errno()){
 			echo '<p>Error: Could not connect to database.<br/> Please try again later. </p>';
-			exit;	
+			exit;
 		}
 		$query="SELECT ID,name, wins,losses,w_pct,efg_pct,off_rating,def_rating,ast_pct,ast_to,shortname FROM teams WHERE ID=?";
 		$stmt=$db->prepare($query);
@@ -56,13 +79,13 @@
 		<li><a href="players.php">Players</a></li>
 		<li><a href="schedule.php?date=2017-02-01">Schedule</a></li>
 	</ul>
-  	
-  	<?php 
+
+  	<?php
 
   	 ?>
 	<table>
 
-		<?php 
+		<?php
 
 			while($stmt->fetch()){
 				echo "<h1>".$teamname."</h1>";
@@ -80,7 +103,7 @@
 
 		<tr><th>Player name</th><th>Age</th><th>Points</th><th>Assists</th><th>Rebounds</th><th>Play Time</th><th>Games played</th></tr>
 
-		<?php 
+		<?php
 			$query2="SELECT id,name, team,age,points,assists,rebounds,minutes,gamesPlayed FROM players WHERE team=?";
 			$stmt2=$db->prepare($query2);
 			$stmt2->bind_param('s',$shortname);

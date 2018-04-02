@@ -1,5 +1,21 @@
 <?php
 
+  // Function to check if HTTP is on and change it to HTTPS
+  function HTTPtoHTTPS() {
+    if ($_SERVER["HTTPS"] != "on") {
+      header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+      exit();
+    }
+  }
+
+  // Function to check if HTTPS is on and change it to HTTP
+  function HTTPStoHTTP() {
+    if (isset($_SERVER["HTTPS"])) {
+      header("Location: http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+      exit();
+    }
+  }
+
   function validation($user) {
     $errors = [];
 
@@ -59,7 +75,7 @@
         $_SESSION['username'] = $user['username'];
         $_SESSION['email'] = $user['email'];
         $_SESSION['last-login'] = time();
-
+        header("Location: teams.php");
       } else {
         $errors = "Incorrect password";
       }
@@ -128,6 +144,7 @@
     // Check if successful
     if ($result) {
       echo "Your registration was successful";
+      header("Location: teams.php");
     } else {
       echo mysqli_error($connection);
     }

@@ -1,3 +1,13 @@
+<?php
+  // Starting the session and require other files
+  session_start();
+  require_once("includes/helper_functions.php");
+
+  // Switch from HTTPS to HTTP
+  HTTPStoHTTP();
+
+?>
+
 <html>
   <head>
     <title>Players Page</title>
@@ -24,17 +34,29 @@
 
   <body>
 
+    <nav>
+      <ul>
+        <?php
+          // Check if user is logged in
+          if (empty($_SESSION['username'])) {
+            echo "<li><a href=\"login.php\">Login</a></li>";
+          } else {
+            echo "<li><a href=\"logout.php\">Logout</a></li>";
+          }
+        ?>
+      </ul>
+    </nav>
+    
   	<?php
-  		
 
   		$db=new mysqli('localhost','root','','topshots');
   		if(mysqli_connect_errno()){
 			echo '<p>Error: Could not connect to database.<br/> Please try again later. </p>';
-			exit;	
+			exit;
 		}
 
   	?>
- 
+
 	<form action="" method="post">
 
 	<ul>
@@ -45,10 +67,10 @@
  	<h1>Players</h1>
 	<table>
 		<tr><th>Player</th><th>Age</th><th>Team</th><th>Points</th><th>Assists</th><th>Rebounds</th></tr>
-		<?php 
+		<?php
 			$query="SELECT players.id,players.name, players.team,players.age,players.points,players.assists,players.rebounds, teams.name, teams.shortname FROM players JOIN teams WHERE teams.shortname=players.team  ORDER BY points DESC";
 			$stmt=$db->prepare($query);
-		
+
 			$stmt->execute();
 			$stmt->store_result();
 			$result=$stmt->bind_result($id,$name, $team,$age,$points,$assists,$rebounds,$teamname,$shortname);

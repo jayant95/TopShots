@@ -5,7 +5,7 @@
   require_once("includes/helper_functions.php");
 
   // Switch from HTTP to HTTPS on login page
-  //HTTPtoHTTPS();
+  HTTPtoHTTPS();
 
   // Initialize variables
   $username = "";

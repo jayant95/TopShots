@@ -5,6 +5,9 @@
   require_once("includes/db_connection.php");
   require_once("includes/helper_functions.php");
 
+  // Switch from HTTP to HTTPS on login page
+  HTTPtoHTTPS();
+
   $user = [];
   $user['first-name'] = "";
   $user['last-name'] = "";
