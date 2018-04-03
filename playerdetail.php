@@ -108,9 +108,25 @@
 
 
 		?>
-
-
 	</form>
+
+  <form action="playerDetail.php?playerID=<?php echo "$playerID&playerteam=$playerteam"?>" method="post">
+    <h2>Discussion</h2>
+
+    <?php
+    // Add code to retrieve comments on page
+
+
+    if (!empty($_SESSION['username'])) {
+      echo "<textarea rows='4' columns='50' placeholder='Write a comment'></textarea>";
+      echo "<input type='submit' name='submit' value='Submit'/>";
+    } else {
+      echo "<p>Please login to add a comment</p>";
+    }
+    ?>
+
+
+  <form>
   </body>
 
 </html>
