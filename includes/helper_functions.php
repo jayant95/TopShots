@@ -155,4 +155,48 @@
     $_SESSION['username'] = $user['username'];
   }
 
+  function insertGameDetailComment($info, $connection) {
+    // Insert new entry into the db
+    $sql = "INSERT INTO comments ";
+    $sql .= "(gameID, username, description, timestamp) ";
+    $sql .= "VALUES (";
+    $sql .= "'" . $info['gameID'] . "',";
+    $sql .= "'" . $info['username'] . "',";
+    $sql .= "'" . $info['comment'] . "',";
+    $sql .= "'" . $info['timestamp'] . "'";
+    $sql .= ")";
+
+    $result = mysqli_query($connection, $sql);
+    mysqli_close($connection);
+
+  }
+
+
+  function insertPlayerDetailComment($info, $connection) {
+    // Insert new entry into the db
+    $sql = "INSERT INTO comments ";
+    $sql .= "(username, playerID, description, timestamp) ";
+    $sql .= "VALUES (";
+    $sql .= "'" . $info['username'] . "',";
+    $sql .= "'" . $info['playerID'] . "',";
+    $sql .= "'" . $info['comment'] . "',";
+    $sql .= "'" . $info['timestamp'] . "'";
+    $sql .= ")";
+
+    $result = mysqli_query($connection, $sql);
+
+    mysqli_close($connection);
+
+  }
+
+  function retrieveGameComments($gameID, $connection) {
+    //  Retrieve comments from db
+    $sql = "SELECT username, description ";
+    $sql .= "FROM comments ";
+    $sql .= "WHERE gameID = $gameID";
+    $result = mysqli_query($connection, $sql);
+
+    return $result;
+  }
+
 ?>

@@ -1,10 +1,39 @@
 <?php
   // Starting the session and require other files
   session_start();
+  require_once("includes/db_connection.php");
   require_once("includes/helper_functions.php");
 
   // Switch from HTTPS to HTTP
   HTTPStoHTTP();
+
+  $playerteam=$_GET['playerteam'];
+  $playerID=$_GET['playerID'];
+  $db=new mysqli('localhost','root','','topshots');
+  if(mysqli_connect_errno()){
+  echo '<p>Error: Could not connect to database.<br/> Please try again later. </p>';
+  exit;
+  }
+  $query="SELECT id,name, team,age,points,assists,rebounds,minutes,gamesPlayed,wins,losses,fgAttempted,fgPercentage,3PM,3PA,3Ppercentage,ftMade,ftAttempted,ftPercentage,offRebounds,defRebounds,turnovers,steals,blocks,fouls,plusMinus FROM players WHERE id=?";
+  $stmt=$db->prepare($query);
+  $stmt->bind_param('i',$playerID);
+  $stmt->execute();
+  $stmt->store_result();
+  $result=$stmt->bind_result($playerID,$playername, $team,$age,$points,$assists,$rebounds,$minutes,$gamesPlayed,$wins,$losses,$fgAttempted,$fgPercentage,$PM,$PA,$Ppercentage,$ftMade,$ftAttempted,$ftPercentage,$offRebounds,$defRebounds,$turnovers,$steals,$blocks,$fouls,$plusMinus);
+
+  // if form was submitted
+  if (isset($_POST["submit"])) {
+    $comment = !empty($_POST['comment']) ? $_POST['comment'] : "";
+    if (!empty(trim($comment))) {
+      $info = [];
+      $info['username'] = $_SESSION['username'];
+      $info['playerID'] = $playerID;
+      $info['comment'] = $comment;
+      $info['timestamp'] = time();
+      insertPlayerDetailComment($info, $connection);
+    }
+
+  }
 
 ?>
 
@@ -57,19 +86,6 @@
 
   	<?php
 
-  		$playerteam=$_GET['playerteam'];
-  		$playerID=$_GET['playerID'];
-  		$db=new mysqli('localhost','root','','topshots');
-  		if(mysqli_connect_errno()){
-			echo '<p>Error: Could not connect to database.<br/> Please try again later. </p>';
-			exit;
-		}
-		$query="SELECT id,name, team,age,points,assists,rebounds,minutes,gamesPlayed,wins,losses,fgAttempted,fgPercentage,3PM,3PA,3Ppercentage,ftMade,ftAttempted,ftPercentage,offRebounds,defRebounds,turnovers,steals,blocks,fouls,plusMinus FROM players WHERE id=?";
-		$stmt=$db->prepare($query);
-		$stmt->bind_param('i',$playerID);
-		$stmt->execute();
-		$stmt->store_result();
-		$result=$stmt->bind_result($playerID,$playername, $team,$age,$points,$assists,$rebounds,$minutes,$gamesPlayed,$wins,$losses,$fgAttempted,$fgPercentage,$PM,$PA,$Ppercentage,$ftMade,$ftAttempted,$ftPercentage,$offRebounds,$defRebounds,$turnovers,$steals,$blocks,$fouls,$plusMinus);
 
   	?>
 
@@ -114,11 +130,32 @@
     <h2>Discussion</h2>
 
     <?php
-    // Add code to retrieve comments on page
+    //Retrieve comments on page
+    $sql = "SELECT username, description, timestamp ";
+    $sql .= "FROM comments ";
+    $sql .= "WHERE playerID = ?";
+    $stmt2=$db->prepare($sql);
+    $stmt2->bind_param('i',$playerID);
+    $stmt2->execute();
+    $stmt2->store_result();
+    $result2=$stmt2->bind_result($username, $description, $timestamp);
+
+    echo "<div class='comment-section'>";
+    while($stmt2->fetch()){
+      //echo(date("Y-m-d",$timestamp));
+
+      $date = date("Y-m-d", $timestamp);
+      echo "<div class='comment'>";
+      echo "<p><strong>$username</strong></p>";
+      echo "<p>$date</p>";
+      echo "<p>$description</p>";
+      echo "</div>";
+    }
+    echo "</div>";
 
 
     if (!empty($_SESSION['username'])) {
-      echo "<textarea rows='4' columns='50' placeholder='Write a comment'></textarea>";
+      echo "<textarea name='comment' rows='4' columns='50' placeholder='Write a comment'></textarea>";
       echo "<input type='submit' name='submit' value='Submit'/>";
     } else {
       echo "<p>Please login to add a comment</p>";
