@@ -43,59 +43,17 @@
 <html>
   <head>
     <title>Gamedetail Page</title>
-    <style type="text/css">
-		a{
-			text-decoration: none;
-			color:black;
-		}
-		a:hover{
-			color:grey;
-		}
-		ul{
-			text-align: center;
-			padding-bottom: 10px;
-			border-bottom: 2px solid black;
-		}
-		li{
-			display: inline-block;
-			width: 20%;
-		}
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 
-	</style>
   </head>
 
   <body>
+    <?php
+      require("includes/header.php");
+    ?>
 
-    <nav>
-      <ul>
-        <?php
-          // Check if user is logged in
-          if (empty($_SESSION['username'])) {
-            echo "<li><a href=\"login.php\">Login</a></li>";
-          } else {
-            echo "<li><a href=\"logout.php\">Logout</a></li>";
-          }
-        ?>
-      </ul>
-    </nav>
-
-  	<?php
-
-
-  	?>
 
 	<form action="" method="post">
-	<ul>
-		<li><a href="teams.php">Teams</a></li>
-		<li><a href="players.php">Players</a></li>
-		<li><a href="schedule.php?date=2017-02-01">Schedule</a></li>
-	</ul>
-	<ul>
-		<li><a href="schedule.php?date=2017-01-31">Last day</a></li>
-		<li><a href="schedule.php?date=2017-02-01">Today</a></li>
-		<li><a href="schedule.php?date=2017-02-02">Next day</a></li>
-	</ul>
-
 
 	<?php
 		while($stmt->fetch()){

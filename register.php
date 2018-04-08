@@ -52,22 +52,13 @@
 <html>
   <head>
     <title>Register Page</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
   </head>
 
   <body>
-
-    <nav>
-      <ul>
-        <?php
-          // Check if user is logged in
-          if (empty($_SESSION['username'])) {
-            echo "<li><a href=\"login.php\">Login</a></li>";
-          } else {
-            echo "<li><a href=\"logout.php\">Logout</a></li>";
-          }
-        ?>
-      </ul>
-    </nav>
+    <?php
+      require("includes/header.php");
+    ?>
 
     <div>
       <h1>Register</h1>

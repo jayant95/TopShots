@@ -75,7 +75,7 @@
         $_SESSION['username'] = $user['username'];
         $_SESSION['email'] = $user['email'];
         $_SESSION['last-login'] = time();
-        header("Location: teams.php");
+        header("Location: homepage.php");
       } else {
         $errors = "Incorrect password";
       }
@@ -144,7 +144,7 @@
     // Check if successful
     if ($result) {
       echo "Your registration was successful";
-      header("Location: teams.php");
+      header("Location: homepage.php");
     } else {
       echo mysqli_error($connection);
     }
@@ -184,7 +184,6 @@
     $sql .= ")";
 
     $result = mysqli_query($connection, $sql);
-
     mysqli_close($connection);
 
   }

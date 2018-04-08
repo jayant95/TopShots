@@ -6,5 +6,5 @@
   unset($_SESSION['username']);
   unset($_SESSION['email']);
   unset($_SESSION['last-login']);
-  header("Location: login.php");
+  header("Location: homepage.php");
 ?>

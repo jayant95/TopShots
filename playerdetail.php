@@ -40,62 +40,16 @@
 <html>
   <head>
     <title>Teams Detail Page</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 
-    <style type="text/css">
-		a{
-			text-decoration: none;
-			color:black;
-		}
-		a:hover{
-			color:grey;
-		}
-		ul{
-			text-align: center;
-			padding-bottom: 10px;
-			border-bottom: 2px solid black;
-		}
-		li{
-			display: inline-block;
-			width: 20%;
-		}
-		th{
-			width:150px;
-		}
-		th.teamname{
-			width:150px;
-		}
-
-
-	</style>
   </head>
 
   <body>
-
-    <nav>
-      <ul>
-        <?php
-          // Check if user is logged in
-          if (empty($_SESSION['username'])) {
-            echo "<li><a href=\"login.php\">Login</a></li>";
-          } else {
-            echo "<li><a href=\"logout.php\">Logout</a></li>";
-          }
-        ?>
-      </ul>
-    </nav>
-
-  	<?php
-
-
-  	?>
+    <?php
+      require("includes/header.php");
+    ?>
 
 	<form action="" method="post">
-
-	<ul>
-		<li><a href="teams.php">Teams</a></li>
-		<li><a href="players.php">Players</a></li>
-		<li><a href="schedule.php?date=2017-02-01">Schedule</a></li>
-	</ul>
 
 	<table>
 		<tr><th>Player name</th><th>Team</th><th>Age</th><th>Points</th><th>Assists</th><th>Rebounds</th><th>Play time</th><th>Played games</th><th>Wins</th><th>Losses</th><th>fgAttempted</th><th>fgPercentage</th><th>3PM</th><th>3PA</th><th>3Percetage</th><th>ftMade</th><th>ftAttempted</th><th>ftPercentage</th><th>offRebounds</th><th>defRebounds</th><th>turnovers</th><th>steals</th><th>blocks</th><th>fouls</th><th>plusMinus</th></tr>

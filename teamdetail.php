@@ -6,83 +6,38 @@
   // Switch from HTTPS to HTTP
   HTTPStoHTTP();
 
+  $name='';
+  $teamID=$_GET['teamID'];
+  $db=new mysqli('localhost','root','','topshots');
+  if(mysqli_connect_errno()){
+    echo '<p>Error: Could not connect to database.<br/> Please try again later. </p>';
+    exit;
+  }
+
 ?>
 
 <html>
   <head>
     <title>Teams Detail Page</title>
-    <style type="text/css">
-		a{
-			text-decoration: none;
-			color:black;
-		}
-		a:hover{
-			color:grey;
-		}
-		ul{
-			text-align: center;
-			padding-bottom: 10px;
-			border-bottom: 2px solid black;
-		}
-		li{
-			display: inline-block;
-			width: 20%;
-		}
-		th{
-			width:100px;
-		}
-		th.teamname{
-			width:150px;
-		}
-
-
-	</style>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
   </head>
 
   <body>
+    <?php
+      require("includes/header.php");
 
-    <nav>
-      <ul>
-        <?php
-          // Check if user is logged in
-          if (empty($_SESSION['username'])) {
-            echo "<li><a href=\"login.php\">Login</a></li>";
-          } else {
-            echo "<li><a href=\"logout.php\">Logout</a></li>";
-          }
-        ?>
-      </ul>
-    </nav>
-    
-  	<?php
-  		$name='';
-  		$teamID=$_GET['teamID'];
-  		$db=new mysqli('localhost','root','','topshots');
-  		if(mysqli_connect_errno()){
-			echo '<p>Error: Could not connect to database.<br/> Please try again later. </p>';
-			exit;
-		}
-		$query="SELECT ID,name, wins,losses,w_pct,efg_pct,off_rating,def_rating,ast_pct,ast_to,shortname FROM teams WHERE ID=?";
-		$stmt=$db->prepare($query);
-		$stmt->bind_param('i',$teamID);
-		$stmt->execute();
-		$stmt->store_result();
-		$result=$stmt->bind_result($teamID,$teamname, $wins,$losses,$w_pct,$efg_pct,$off_rating,$def_rating,$ast_pct,$ast_to,$shortname);
+  		$query="SELECT ID,name, wins,losses,w_pct,efg_pct,off_rating,def_rating,ast_pct,ast_to,shortname FROM teams WHERE ID=?";
+  		$stmt=$db->prepare($query);
+  		$stmt->bind_param('i',$teamID);
+  		$stmt->execute();
+  		$stmt->store_result();
+  		$result=$stmt->bind_result($teamID,$teamname, $wins,$losses,$w_pct,$efg_pct,$off_rating,$def_rating,$ast_pct,$ast_to,$shortname);
 
 
   	?>
 
 	<form action="" method="post">
 
-	<ul>
-		<li><a href="teams.php">Teams</a></li>
-		<li><a href="players.php">Players</a></li>
-		<li><a href="schedule.php?date=2017-02-01">Schedule</a></li>
-	</ul>
-
-  	<?php
-
-  	 ?>
 	<table>
 
 		<?php

@@ -1,0 +1,88 @@
+html {
+  font-family: Helvetica, Arial, sans-serif;
+
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover{
+  color:grey;
+}
+
+ul, li {
+  text-decoration: none;
+  list-style-type: none;
+}
+
+.topBanner {
+  width: 100%;
+  background-color: #004885;
+  color: white;
+}
+
+.innerBanner {
+    background-color: #01579B;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  /* width: 90%;
+  margin: 0 auto; */
+}
+
+.nba-logo {
+  width: 2.5%;
+  display: inline-block;
+  vertical-align: bottom;
+  padding: 0.5rem;
+}
+
+.title {
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+.title h1 {
+    display: inline-block;
+}
+
+.title a {
+  color: white;
+}
+
+.login-logout a {
+  text-decoration: none;
+  color: white;
+}
+
+.login-logout ul {
+  padding-top: 1.7rem;
+}
+
+.links {
+  text-align: center;
+  padding-bottom: 10px;
+  /* border-bottom: 2px solid black; */
+}
+
+.links a {
+  color: white;
+  text-decoration: none;
+}
+
+.page-link {
+  display: inline-block;
+  width: 20%;
+}
+
+.schedule-dates {
+  display: none;
+  visibility: hidden;
+}
