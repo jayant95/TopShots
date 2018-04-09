@@ -35,6 +35,20 @@
 
   }
 
+  if (isset($_POST["follow"])) {
+    $info = [];
+    $info['username'] = $_SESSION['username'];
+    $info['playerID'] = $playerID;
+    insertPlayerFollow($info, $connection);
+  }
+
+  if (isset($_POST["unfollow"])) {
+    $info = [];
+    $info['username'] = $_SESSION['username'];
+    $info['playerID'] = $playerID;
+    removePlayerFollow($info, $connection);
+  }
+
 ?>
 
 <html>
@@ -62,6 +76,21 @@
 		?>
 
 	</table>
+
+  <form>
+    <?php
+    if (!empty($_SESSION['username'])) {
+      $user = [];
+      $user['username'] = $_SESSION['username'];
+      $user['playerID'] = $playerID;
+      if (isPlayerFollowing($user, $connection)) {
+        echo "<input type='submit' name='unfollow' value='Unfollow'/>";
+      } else {
+        echo "<input type='submit' name='follow' value='Follow'/>";
+      }
+    }
+    ?>
+  </form>
 
 	<h2>games</h2>
 		<?php
@@ -118,6 +147,10 @@
 
 
   <form>
+
+    <?php
+      mysqli_close($connection);
+     ?>
   </body>
 
 </html>

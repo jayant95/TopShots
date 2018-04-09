@@ -149,7 +149,7 @@
       echo mysqli_error($connection);
     }
 
-    mysqli_close($connection);
+//    mysqli_close($connection);
 
     // Assign session variables
     $_SESSION['username'] = $user['username'];
@@ -167,7 +167,7 @@
     $sql .= ")";
 
     $result = mysqli_query($connection, $sql);
-    mysqli_close($connection);
+  //  mysqli_close($connection);
 
   }
 
@@ -184,7 +184,7 @@
     $sql .= ")";
 
     $result = mysqli_query($connection, $sql);
-    mysqli_close($connection);
+  //  mysqli_close($connection);
 
   }
 
@@ -196,6 +196,51 @@
     $result = mysqli_query($connection, $sql);
 
     return $result;
+  }
+
+
+  function isPlayerFollowing($info, $connection) {
+    $isFollowing = false;
+    // Check if player followed exists in database
+    $sql = "SELECT * FROM following ";
+    $sql .= "WHERE username='" . $info['username'] . "' ";
+    $sql .= "AND playerid='" . $info['playerID'] . "' ";
+
+    $result = mysqli_query($connection, $sql);
+    if (mysqli_num_rows($result) > 0) {
+      $isFollowing = true;
+    } else {
+      $isFollowing = false;
+    }
+    mysqli_free_result($result);
+    //mysqli_close($connection);
+
+    return $isFollowing;
+  }
+
+  function insertPlayerFollow($info, $connection) {
+    // Insert new entry into the db
+    $sql = "INSERT INTO following ";
+    $sql .= "(username, playerid) ";
+    $sql .= "VALUES (";
+    $sql .= "'" . $info['username'] . "',";
+    $sql .= "'" . $info['playerID'] . "'";
+    $sql .= ")";
+
+    $result = mysqli_query($connection, $sql);
+    //mysqli_close($connection);
+
+  }
+
+  function removePlayerFollow($info, $connection) {
+    // Delete entry from the db
+    $sql = "DELETE FROM following ";
+    $sql .= "WHERE username='" . $info['username'] . "' ";
+    $sql .= "AND playerid='" . $info['playerID'] . "' ";
+
+    $result = mysqli_query($connection, $sql);
+    //mysqli_close($connection);
+
   }
 
 ?>
