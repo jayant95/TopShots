@@ -1,6 +1,5 @@
 html {
   font-family: Helvetica, Arial, sans-serif;
-
 }
 
 body {
@@ -15,6 +14,10 @@ a {
 
 a:hover{
   color:grey;
+}
+
+p {
+  color: #6d7073;
 }
 
 ul, li {
@@ -69,6 +72,7 @@ ul, li {
 .links {
   text-align: center;
   padding-bottom: 10px;
+  margin-bottom: 0;
   /* border-bottom: 2px solid black; */
 }
 
@@ -90,6 +94,7 @@ ul, li {
 .home-content {
   width: 80%;
   margin: 0 auto;
+  background-color: white;
 }
 
 .main-content {
@@ -142,4 +147,36 @@ ul, li {
 
 .comment-list {
   padding: 0;
+}
+
+.page-content {
+  padding: 1rem;
+  width: 80%;
+  margin: 0 auto;
+  background-color: white;
+}
+
+.team-list {
+  display: flex;
+}
+
+.conference-teams {
+  flex-grow: 1;
+}
+
+.conference-teams {
+  text-align: left;
+}
+
+.conference-teams td {
+  color: #6d7073;
+}
+
+.team-rank {
+  text-align: center;
+}
+
+.conference-header {
+  display: inline-block;
+  width: 48.5%;
 }

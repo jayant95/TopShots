@@ -278,4 +278,16 @@
     return $result;
   }
 
+  function getTeamByConference($conference, $db) {
+    $query="SELECT ID,name, wins,losses FROM teams WHERE conference = ? ORDER BY wins DESC";
+    $stmt=$db->prepare($query);
+    $stmt->bind_param('s',$conference);
+    $stmt->execute();
+    $stmt->store_result();
+    $result=$stmt->bind_result($teamID,$teamname, $wins,$losses);
+    while($stmt->fetch()){
+      echo "<tr><td><a href='teamdetail.php?teamID=".$teamID."'>".$teamname." </a> </td><td class='team-rank'>  ".$wins."  </td><td class='team-rank'>  ".$losses."</td></td>";
+    }
+  }
+
 ?>

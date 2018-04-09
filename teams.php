@@ -26,26 +26,34 @@
       require("includes/header.php");
     ?>
 
+    <div class="page-content">
 
-	<form action="" method="post">
+       	<h1>Teams</h1>
+        <h2 class="conference-header">Eastern Conference</h2>
+        <h2 class="conference-header">Western Conference</h2>
+    	<div class="team-list">
 
- 	<h1>Teams</h1>
-	<table>
-		<tr><th>Team</th><th>Wins</th><th>Losses</th></tr>
-		<?php
-			$query="SELECT ID,name, wins,losses FROM teams";
-			$stmt=$db->prepare($query);
 
-			$stmt->execute();
-			$stmt->store_result();
-			$result=$stmt->bind_result($teamID,$teamname, $wins,$losses);
-			while($stmt->fetch()){
-				echo "<tr><th><a href='teamdetail.php?teamID=".$teamID."'>".$teamname." </a> </th><th>  ".$wins."  </th><th>  ".$losses."</th></tr>";
-			}
-		?>
+      	<table class="conference-teams">
 
-	</table>
-	</form>
+      		<tr><th>Team</th><th class="team-rank">Wins</th><th class="team-rank">Losses</th></tr>
+      		<?php
+            // Get Eastern Conference
+            getTeamByConference("East", $db);
+          ?>
+
+      	</table>
+        <table class="conference-teams">
+      		<tr><th>Team</th><th class="team-rank">Wins</th><th class="team-rank">Losses</th></tr>
+      		<?php
+            // Get Eastern Conference
+            getTeamByConference("West", $db);
+          ?>
+
+      	</table>
+    	</div>
+
+  </div>
   </body>
 
 </html>
