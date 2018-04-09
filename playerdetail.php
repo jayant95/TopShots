@@ -30,6 +30,7 @@
       $info['playerID'] = $playerID;
       $info['comment'] = $comment;
       $info['timestamp'] = time();
+      $info['playerTeam'] = $playerteam;
       insertPlayerDetailComment($info, $connection);
     }
 
@@ -39,6 +40,14 @@
     $info = [];
     $info['username'] = $_SESSION['username'];
     $info['playerID'] = $playerID;
+    $info['playerTeam'] = $playerteam;
+    $info['playerName'] = "";
+
+    $result = getPlayerName($info, $connection);
+
+    while ($name = mysqli_fetch_assoc($result)) {
+        $info['playerName'] = $name['name'];
+    }
     insertPlayerFollow($info, $connection);
   }
 

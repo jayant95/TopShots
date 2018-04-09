@@ -175,14 +175,14 @@
   function insertPlayerDetailComment($info, $connection) {
     // Insert new entry into the db
     $sql = "INSERT INTO comments ";
-    $sql .= "(username, playerID, description, timestamp) ";
+    $sql .= "(username, playerID, description, timestamp, playerTeam) ";
     $sql .= "VALUES (";
     $sql .= "'" . $info['username'] . "',";
     $sql .= "'" . $info['playerID'] . "',";
     $sql .= "'" . $info['comment'] . "',";
-    $sql .= "'" . $info['timestamp'] . "'";
+    $sql .= "'" . $info['timestamp'] . "',";
+    $sql .= "'" . $info['playerTeam'] . "'";
     $sql .= ")";
-
     $result = mysqli_query($connection, $sql);
   //  mysqli_close($connection);
 
@@ -221,10 +221,12 @@
   function insertPlayerFollow($info, $connection) {
     // Insert new entry into the db
     $sql = "INSERT INTO following ";
-    $sql .= "(username, playerid) ";
+    $sql .= "(username, playername, playerid, playerTeam) ";
     $sql .= "VALUES (";
     $sql .= "'" . $info['username'] . "',";
-    $sql .= "'" . $info['playerID'] . "'";
+    $sql .= "'" . $info['playerName'] . "',";
+    $sql .= "'" . $info['playerID'] . "',";
+    $sql .= "'" . $info['playerTeam'] . "'";
     $sql .= ")";
 
     $result = mysqli_query($connection, $sql);
@@ -241,6 +243,38 @@
     $result = mysqli_query($connection, $sql);
     //mysqli_close($connection);
 
+  }
+
+  function getPlayerName($info, $connection) {
+    $sql = "SELECT name ";
+    $sql .= "FROM players ";
+    $sql .= "WHERE id='" . $info['playerID'] . "' ";
+    $result = mysqli_query($connection, $sql);
+
+    return $result;
+  }
+
+  function getFollowingList($info, $connection) {
+    $sql = "SELECT playername, playerid, playerTeam ";
+    $sql .= "FROM following ";
+    $sql .= "WHERE username='" . $info['username'] . "' ";
+    $result = mysqli_query($connection, $sql);
+    return $result;
+  }
+
+  function getRecentCommentList($info, $connection) {
+    // SELECT * FROM (
+    //   SELECT * FROM comments ORDER BY commentID DESC LIMIT 3
+    // ) as r ORDER BY commentID
+    $innersql = "SELECT * FROM comments ";
+    $innersql .= "WHERE username='" . $info['username'] . "' ";
+    $innersql .= "ORDER BY commentID DESC LIMIT 3";
+    $sql = "SELECT * FROM ";
+    $sql .= "($innersql) ";
+    $sql .= "as r ORDER BY commentID";
+    $result = mysqli_query($connection, $sql);
+
+    return $result;
   }
 
 ?>
