@@ -118,3 +118,28 @@ ul, li {
 .text-links:hover {
   color: #004885;
 }
+
+.following-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+}
+
+.following li, .comment {
+  /* flex-grow: 1; */
+  /* border-right: 1px solid black; */
+  padding: 0.75rem;
+  margin: 0.25rem;
+  -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+   -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+        box-shadow:0 1px 4px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+
+}
+
+.following a:hover {
+  color: #004885;
+}
+
+.comment-list {
+  padding: 0;
+}

@@ -43,10 +43,11 @@
     $info['playerTeam'] = $playerteam;
     $info['playerName'] = "";
 
-    $result = getPlayerName($info, $connection);
+    $result = getPlayerNameAndTwitter($info, $connection);
 
     while ($name = mysqli_fetch_assoc($result)) {
         $info['playerName'] = $name['name'];
+        $info['twitter'] = $name['twitter'];
     }
     insertPlayerFollow($info, $connection);
   }

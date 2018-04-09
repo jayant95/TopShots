@@ -221,12 +221,13 @@
   function insertPlayerFollow($info, $connection) {
     // Insert new entry into the db
     $sql = "INSERT INTO following ";
-    $sql .= "(username, playername, playerid, playerTeam) ";
+    $sql .= "(username, playername, playerid, playerTeam, twitter) ";
     $sql .= "VALUES (";
     $sql .= "'" . $info['username'] . "',";
     $sql .= "'" . $info['playerName'] . "',";
     $sql .= "'" . $info['playerID'] . "',";
-    $sql .= "'" . $info['playerTeam'] . "'";
+    $sql .= "'" . $info['playerTeam'] . "',";
+    $sql .= "'" . $info['twitter'] . "'";
     $sql .= ")";
 
     $result = mysqli_query($connection, $sql);
@@ -245,8 +246,8 @@
 
   }
 
-  function getPlayerName($info, $connection) {
-    $sql = "SELECT name ";
+  function getPlayerNameAndTwitter($info, $connection) {
+    $sql = "SELECT name, twitter ";
     $sql .= "FROM players ";
     $sql .= "WHERE id='" . $info['playerID'] . "' ";
     $result = mysqli_query($connection, $sql);
@@ -255,7 +256,7 @@
   }
 
   function getFollowingList($info, $connection) {
-    $sql = "SELECT playername, playerid, playerTeam ";
+    $sql = "SELECT playername, playerid, playerTeam, twitter ";
     $sql .= "FROM following ";
     $sql .= "WHERE username='" . $info['username'] . "' ";
     $result = mysqli_query($connection, $sql);

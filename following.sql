@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2018 at 09:07 PM
+-- Generation Time: Apr 10, 2018 at 12:52 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -32,15 +32,9 @@ CREATE TABLE `following` (
   `username` varchar(255) NOT NULL,
   `playername` varchar(255) NOT NULL,
   `playerid` smallint(8) NOT NULL,
-  `playerTeam` varchar(255) DEFAULT NULL
+  `playerTeam` varchar(255) DEFAULT NULL,
+  `twitter` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `following`
---
-
-INSERT INTO `following` (`username`, `playername`, `playerid`, `playerTeam`) VALUES
-('user', 'Stephen Curry', 9, 'Golden State Warriors');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

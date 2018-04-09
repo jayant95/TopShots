@@ -44,7 +44,13 @@
         echo "<ul class='following-list'>";
         if (mysqli_num_rows($result) > 0) {
           while ($list = mysqli_fetch_assoc($result)) {
+            echo "<div class='following'>";
             echo "<li><a href='playerdetail.php?playerID=".$list['playerid']."&playerteam=".$list['playerTeam']."'>".$list['playername']."</a></li>";
+            $twitterLink = $list['twitter'];
+            if ($twitterLink) {
+              echo "<a class='twitter-timeline' data-tweet-limit='1' data-width='250' data-link-color='#E81C4F' href=".$twitterLink.">Tweets</a> <script async src='https://platform.twitter.com/widgets.js' charset='utf-8'></script>";
+            }
+            echo "</div>";
           }
         } else {
           echo "<p>You are not following any players</p>";
@@ -58,11 +64,13 @@
         $comments = getRecentCommentList($user, $connection);
         if (mysqli_num_rows($comments) > 0) {
           while ($comment = mysqli_fetch_assoc($comments)) {
+            echo "<div class='comment'>";
             if ($comment['gameID'] != 0) {
               echo "<li><a href='gamedetail.php?gameID=".$comment['gameID']."'>".$comment['description']."</a></li>";
             } else {
               echo "<li><a href='playerdetail.php?playerID=".$comment['playerID']."&playerteam=".$comment['playerTeam']."'>".$comment['description']."</a></li>";
             }
+            echo "</div>";
           }
         } else {
           echo "<p>You have not commented</p>";
@@ -75,7 +83,7 @@
 
     ?>
     <div class="twitter-sidebar">
-      <a class="twitter-timeline" data-height="570" data-link-color="#E81C4F" href="https://twitter.com/NBA?ref_src=twsrc%5Etfw">Tweets by NBA</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      <a class="twitter-timeline" data-height="800" data-link-color="#E81C4F" href="https://twitter.com/NBA?ref_src=twsrc%5Etfw">Tweets by NBA</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </div>
 
     </div>
