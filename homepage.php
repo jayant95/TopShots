@@ -22,7 +22,21 @@
   <body>
     <?php
       require("includes/header.php");
-
+    ?>
+      <div class='home-content'>
+        <div class='main-content'>
+          <h2>Welcome!</h2>
+          <p class="intro">Welcome to TopShots! Our website offers NBA Statistics from the 2016-2017 season. Our website timeline
+            takes place on Februrary 1, 2017 so we can showcase the previous day and the next day games. You are able to
+            see who won and look at the stats for the game. You can also view your favourite players and see their season
+            stats. We also offer the team rankings. You are also able to follow your favourite players and their twitter feed will be displayed on your homepage.
+            <?php
+              if (empty($_SESSION['username'])) {
+                echo "Feel free to create an account <a class='text-links' href='register.php'>here</a> or <a class='text-links' href='login.php'>login</a> to discuss with fellow members about your favourite players and recent games and get started!";
+              }
+            ?>
+          </p>
+    <?php
       if (!empty($_SESSION['username'])) {
         echo "<h2>Following</h2>";
         $user['username'] = $_SESSION['username'];
@@ -57,10 +71,15 @@
         echo "</ul>";
       }
 
-
-
+      echo "</div>";
 
     ?>
+    <div class="twitter-sidebar">
+      <a class="twitter-timeline" data-height="570" data-link-color="#E81C4F" href="https://twitter.com/NBA?ref_src=twsrc%5Etfw">Tweets by NBA</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    </div>
+
+    </div>
+
   </body>
 
 </html>

@@ -86,3 +86,35 @@ ul, li {
   display: none;
   visibility: hidden;
 }
+
+.home-content {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.main-content {
+  width: 60%;
+  float: left;
+}
+
+.intro {
+  width: 90%;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 1.625rem;
+  color: #6d7073;
+}
+
+.twitter-sidebar {
+  width: 39%;
+  float: right;
+}
+
+.text-links {
+  color: #01579B;
+  font-weight: 550;
+}
+
+.text-links:hover {
+  color: #004885;
+}
