@@ -60,7 +60,9 @@
       require("includes/header.php");
     ?>
 
-    <div>
+    <div class="page-content">
+      <div class="login-container">
+      <div class="login-form">
       <h1>Register</h1>
       <?php
         if (!empty($errors)) {
@@ -73,19 +75,19 @@
       ?>
 
       <form action="register.php" method="post">
-        First Name:<br />
-        <input type="text" name="first-name" value="<?php echo $user['first-name'] ?>" /><br />
-        Last Name:<br />
-        <input type="text" name="last-name" value="<?php echo $user['last-name'] ?>" /><br />
-        Email:<br />
-        <input type="text" name="email" value="<?php echo $user['email'] ?>" /><br />
-        Username:<br />
-        <input type="text" name="username" value="<?php echo $user['username'] ?>" /><br />
-        Password:<br />
-        <input type="password" name="password" value="" /><br />
-        Confirm Password:<br />
-        <input type="password" name="password-confirm" value="" /><br />
-        Favourite Team:<br />
+        <label>First Name:</label>
+        <input class="register-input" type="text" name="first-name" value="<?php echo $user['first-name'] ?>" /><br />
+        <label>Last Name:</label>
+        <input class="register-input" type="text" name="last-name" value="<?php echo $user['last-name'] ?>" /><br />
+        <label>Email:</label>
+        <input class="register-input" type="text" name="email" value="<?php echo $user['email'] ?>" /><br />
+        <label>Username:</label>
+        <input class="register-input" type="text" name="username" value="<?php echo $user['username'] ?>" /><br />
+        <label>Password:</label>
+        <input class="register-input" type="password" name="password" value="" /><br />
+        <label>Confirm Password:</label>
+        <input class="register-input" type="password" name="password-confirm" value="" /><br />
+        <label>Favourite Team:</label>
 
         <?php
           $teamVal = ['', 'ATL', 'BOS', 'BKN', 'CHA', 'CHI', 'CLE', 'DAL', 'DEN', 'DET',
@@ -96,7 +98,7 @@
           'Golden State Warriors', 'Houston Rockets', 'Indiana Pacers', 'Los Angeles Clippers', 'Los Angeles Lakers', 'Memphis Grizzlies', 'Miami Heat', 'Milwaukee Bucks', 'Minnesota Timberwolves', 'New Orleans Pelicans',
           'New York Knicks', 'Oklahoma City Thunder', 'Orlando Magic', 'Philadelphia 76ers', 'Phoenix Suns', 'Portland Trail Blazers', 'Sacramento Kings', 'San Antonio Spurs', 'Toronto Raptors', 'Utah Jazz', 'Washington Wizards'];
 
-          echo "<select name='favTeam'>";
+          echo "<select class='register-input' name='favTeam'>";
           $i = 0;
           foreach ($teamVal as $opt) {
             $match = "";
@@ -109,7 +111,7 @@
           echo "<select>";
 
         ?>
-        <input type="submit" name="submit" value="Submit"  />
+        <input class="login-button" type="submit" name="submit" value="Submit"  />
       </form>
     </div>
 

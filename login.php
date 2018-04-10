@@ -52,8 +52,9 @@
     <?php
       require("includes/header.php");
     ?>
-
-    <div>
+    <div class="page-content">
+    <div class="login-container">
+    <div class="login-form">
       <h1>Log in</h1>
 
       <?php
@@ -67,20 +68,24 @@
       ?>
 
       <form action="" method="post">
-        Username:<br />
-        <input type="text" name="email" value="" /><br />
-        Password:<br />
-        <input type="password" name="password" value="" /><br />
-        <input type="submit" name="submit" value="Submit"  />
+        <label>Username:</label>
+        <input class="login-input" type="text" name="email" value="" /><br />
+        <label>Password:</label>
+        <input class="login-input" type="password" name="password" value="" /><br />
+        <input class="login-button" type="submit" name="submit" value="Submit"  />
       </form>
 
-      <p>Not registered yet? <a href="register.php">Register Here</a></p>
+      <p>Not registered yet? <a class="text-links" href="register.php">Register Here</a></p>
 
     </div>
+  </div>
 
+  </div>
     <?php
-      mysqli_close($connection);
+    //  mysqli_close($connection);
      ?>
+
+
   </body>
 
 </html>
