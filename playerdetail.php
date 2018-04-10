@@ -74,13 +74,25 @@
     ?>
 
     <div class="stattitle">
+      <form>
         <table>
-
+         
           <?php
 
             while($stmt->fetch()){
               echo "<h1 class='playername'>".$playername."</h1><p>  <".$age.">  ".$team."</p>";
               echo "<tr><th>Points</th><th class='playerstat'>Assists</th><th class='playerstat'>Rebounds</th><th class='playerstat'>Play time</th><th class='playerstat'>fgAttempted</th><th class='playerstat'>fgPercentage</th><th class='playerstat'>3PM</th><th class='playerstat'>3PA</th><th class='playerstat'>3Percetage</th></tr>";
+
+                if (!empty($_SESSION['username'])) {
+                  $user = [];
+                  $user['username'] = $_SESSION['username'];
+                  $user['playerID'] = $playerID;
+                  if (isPlayerFollowing($user, $connection)) {
+                    echo "<input type='submit' name='unfollow' value='Unfollow'/>";
+                  } else {
+                    echo "<input type='submit' name='follow' value='Follow'/>";
+                  }
+                }
 
               echo "<tr><td class='playerstat'>".$points."</td><td class='playerstat'>".$assists."</td><td class='playerstat'>".$rebounds."</td><td class='playerstat'>".$minutes."</td><td class='playerstat'>".$fgAttempted."</td><td class='playerstat'>".$fgPercentage."</td><td class='playerstat'>".$PM."</td><td class='playerstat'>".$PA."</td><td class='playerstat'>".$Ppercentage."</td></tr>";
 
@@ -90,30 +102,14 @@
           ?>
 
         </table>
+      </form>
       </div>
 
 
       <div class="page-content">
 
       	<form action="" method="post">
-
-
-
-        <form>
-          <?php
-          if (!empty($_SESSION['username'])) {
-            $user = [];
-            $user['username'] = $_SESSION['username'];
-            $user['playerID'] = $playerID;
-            if (isPlayerFollowing($user, $connection)) {
-              echo "<input type='submit' name='unfollow' value='Unfollow'/>";
-            } else {
-              echo "<input type='submit' name='follow' value='Follow'/>";
-            }
-          }
-          ?>
-        </form>
-        <div class="leftcontent">
+          <div class="leftcontent">
 
         	<h2>games</h2>
         		<?php
@@ -130,9 +126,10 @@
 
 
         		?>
-        	</form>
+        
         
         </div>
+
         <div class="rightcontent">
 
           <form action="playerDetail.php?playerID=<?php echo "$playerID&playerteam=$playerteam"?>" method="post">
@@ -175,6 +172,7 @@
        
           </form>
         </div>
+      </form>
       </div>
 
     <?php
