@@ -50,7 +50,9 @@
     			}
     		?>
 
+
   	 </table>
+      <a class="wholerank" href="allplayers.php?id=1">-See whole rank-</a>
     </div>
     <div class="topplayer">
       <h2>Assistss Per Game</h2>
@@ -69,6 +71,7 @@
           }
         ?>
       </table>
+      <a  class="wholerank" href="allplayers.php?id=2">-See whole rank-</a>
     </div>
 
 
@@ -90,6 +93,7 @@
         ?>
 
       </table>
+     <a class="wholerank" href="allplayers.php?id=3">-See whole rank-</a>
     </div>
 
 
@@ -113,6 +117,7 @@
 
 
       </table>
+      <a class="wholerank" href="allplayers.php?id=4"> -See whole rank-</a>
     </div>
 
     <div class="topplayer">
@@ -136,6 +141,7 @@
         
 
       </table>
+      <a class="wholerank" href="allplayers.php?id=5">-See whole rank-</a>
     </div>
 
 

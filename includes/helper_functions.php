@@ -289,6 +289,60 @@
       echo "<tr><td><a href='teamdetail.php?teamID=".$teamID."'>".$teamname." </a> </td><td class='team-rank'>  ".$wins."  </td><td class='team-rank'>  ".$losses."</td></td>";
     }
   }
+ function getWholeRank($id, $db) {
 
+    if($id==1){
+
+          $query="SELECT players.id,players.name,players.points,teams.name FROM players JOIN teams WHERE teams.shortname=players.team  ORDER BY points DESC";
+          $stmt=$db->prepare($query);
+
+          $stmt->execute();
+          $stmt->store_result();
+          $result=$stmt->bind_result($id,$name,$points,$teamname);
+          while($stmt->fetch()){
+            echo "<tr><td><a href='playerdetail.php?playerID=".$id."&playerteam=".$teamname."'>".$name." </a> </td><td class='team-rank'>  ".$points."  </td></tr>";
+          }
+  }else if($id==2){
+          $query2="SELECT players.id,players.name,players.assists,teams.name FROM players JOIN teams WHERE teams.shortname=players.team  ORDER BY assists DESC ";
+          $stmt2=$db->prepare($query2);
+
+          $stmt2->execute();
+          $stmt2->store_result();
+          $result2=$stmt2->bind_result($id,$name,$assists,$teamname);
+          while($stmt2->fetch()){
+            echo "<tr><td><a href='playerdetail.php?playerID=".$id."&playerteam=".$teamname."'>".$name." </a> </td><td class='team-rank'>  ".$assists."  </td></tr>";
+          }
+      }else if($id==3){
+          $query3="SELECT players.id,players.name,players.rebounds,teams.name FROM players JOIN teams WHERE teams.shortname=players.team  ORDER BY rebounds DESC";
+          $stmt3=$db->prepare($query3);
+
+          $stmt3->execute();
+          $stmt3->store_result();
+          $result3=$stmt3->bind_result($id,$name,$rebounds,$teamname);
+          while($stmt3->fetch()){
+            echo "<tr><td><a href='playerdetail.php?playerID=".$id."&playerteam=".$teamname."'>".$name." </a> </td><td class='team-rank'>  ".$rebounds."  </td></tr>";
+          }
+        }else if($id==4){
+         $query3="SELECT players.id,players.name,players.steals,teams.name FROM players JOIN teams WHERE teams.shortname=players.team  ORDER BY steals DESC ";
+          $stmt3=$db->prepare($query3);
+
+          $stmt3->execute();
+          $stmt3->store_result();
+          $result3=$stmt3->bind_result($id,$name,$steals,$teamname);
+          while($stmt3->fetch()){
+            echo "<tr><td><a href='playerdetail.php?playerID=".$id."&playerteam=".$teamname."'>".$name." </a> </td><td class='team-rank'>  ".$steals."  </td></tr>";
+          }
+        }else if($id==5){
+         $query3="SELECT players.id,players.name,players.blocks,teams.name FROM players JOIN teams WHERE teams.shortname=players.team  ORDER BY blocks DESC ";
+          $stmt3=$db->prepare($query3);
+
+          $stmt3->execute();
+          $stmt3->store_result();
+          $result3=$stmt3->bind_result($id,$name,$blocks,$teamname);
+          while($stmt3->fetch()){
+            echo "<tr><td><a href='playerdetail.php?playerID=".$id."&playerteam=".$teamname."'>".$name." </a> </td><td class='team-rank'>  ".$blocks."  </td></tr>";
+          }
+        }
+      }
 
 ?>

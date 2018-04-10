@@ -399,3 +399,10 @@ input[type=submit]:hover {
   margin-left: 20px;
   padding:5px 20px; 
 }
+
+
+a.wholerank{
+  text-align: left;
+  margin-left: 20%;
+  display: block;
+}
