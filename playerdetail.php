@@ -73,90 +73,109 @@
       require("includes/header.php");
     ?>
 
-	<form action="" method="post">
+    <div class="stattitle">
+        <table>
 
-	<table>
-		<tr><th>Player name</th><th>Team</th><th>Age</th><th>Points</th><th>Assists</th><th>Rebounds</th><th>Play time</th><th>Played games</th><th>Wins</th><th>Losses</th><th>fgAttempted</th><th>fgPercentage</th><th>3PM</th><th>3PA</th><th>3Percetage</th><th>ftMade</th><th>ftAttempted</th><th>ftPercentage</th><th>offRebounds</th><th>defRebounds</th><th>turnovers</th><th>steals</th><th>blocks</th><th>fouls</th><th>plusMinus</th></tr>
-		<?php
+          <?php
 
-			while($stmt->fetch()){
-				echo "<h1>".$playername."</h1>";
-				echo "<tr><th>".$playername."</th><th>".$team."</th><th>".$age."</th><th>".$points."</th><th>".$assists."</th><th>".$rebounds."</th><th>".$minutes."</th><th>".$gamesPlayed."</th><th>".$wins."</th><th>".$losses."</th><th>".$fgAttempted."</th><th>".$fgPercentage."</th><th>".$PM."</th><th>".$PA."</th><th>".$Ppercentage."</th><th>".$ftMade."</th><th>".$ftAttempted."</th><th>".$ftPercentage."</th><th>".$offRebounds."</th><th>".$defRebounds."</th><th>".$turnovers."</th><th>".$steals."</th><th>".$blocks."</th><th>".$fouls."</th><th>".$plusMinus."</th></tr>";
-			}
-		?>
+            while($stmt->fetch()){
+              echo "<h1 class='playername'>".$playername."</h1><p>  <".$age.">  ".$team."</p>";
+              echo "<tr><th>Points</th><th class='playerstat'>Assists</th><th class='playerstat'>Rebounds</th><th class='playerstat'>Play time</th><th class='playerstat'>fgAttempted</th><th class='playerstat'>fgPercentage</th><th class='playerstat'>3PM</th><th class='playerstat'>3PA</th><th class='playerstat'>3Percetage</th></tr>";
 
-	</table>
+              echo "<tr><td class='playerstat'>".$points."</td><td class='playerstat'>".$assists."</td><td class='playerstat'>".$rebounds."</td><td class='playerstat'>".$minutes."</td><td class='playerstat'>".$fgAttempted."</td><td class='playerstat'>".$fgPercentage."</td><td class='playerstat'>".$PM."</td><td class='playerstat'>".$PA."</td><td class='playerstat'>".$Ppercentage."</td></tr>";
 
-  <form>
-    <?php
-    if (!empty($_SESSION['username'])) {
-      $user = [];
-      $user['username'] = $_SESSION['username'];
-      $user['playerID'] = $playerID;
-      if (isPlayerFollowing($user, $connection)) {
-        echo "<input type='submit' name='unfollow' value='Unfollow'/>";
-      } else {
-        echo "<input type='submit' name='follow' value='Follow'/>";
-      }
-    }
-    ?>
-  </form>
+              echo "<tr><th>ftMade</th><th class='playerstat'>ftAttempted</th><th class='playerstat'>ftPercentage</th><th class='playerstat'>offRebounds</th><th class='playerstat'>defRebounds</th><th class='playerstat'>turnovers</th><th class='playerstat'>steals</th><th class='playerstat'>blocks</th><th class='playerstat'>fouls</th><th class='playerstat'>plusMinus</th></tr>";
+              echo "<tr><td class='playerstat'>".$ftMade."</td><td class='playerstat'>".$ftAttempted."</td><td class='playerstat'>".$ftPercentage."</td><td class='playerstat'>".$offRebounds."</td><td class='playerstat'>".$defRebounds."</td><td class='playerstat'>".$turnovers."</td><td class='playerstat'>".$steals."</td><td class='playerstat'>".$blocks."</td><td class='playerstat'>".$fouls."</td><td class='playerstat'>".$plusMinus."</td></tr>";
+            }
+          ?>
 
-	<h2>games</h2>
-		<?php
-
-			$query2="SELECT gameID,hometeam,guestteam,hometeamScore,guestteamScore,data FROM games WHERE hometeam=? OR guestteam=?";
-			$stmt2=$db->prepare($query2);
-			$stmt2->bind_param('ss',$playerteam,$playerteam);
-			$stmt2->execute();
-			$stmt2->store_result();
-			$result2=$stmt2->bind_result($gameID,$hometeam,$guestTeam,$hometeamScore,$guestteamScore,$date);
-			while($stmt2->fetch()){
-				echo "<tr><a href='gamedetail.php?gameID=".$gameID."'>".$hometeam."    ".$hometeamScore."   :  ".$guestteamScore."    ".$guestTeam."</a></tr><br>";
-			}
+        </table>
+      </div>
 
 
-		?>
-	</form>
+      <div class="page-content">
 
-  <form action="playerDetail.php?playerID=<?php echo "$playerID&playerteam=$playerteam"?>" method="post">
-    <h2>Discussion</h2>
-
-    <?php
-    //Retrieve comments on page
-    $sql = "SELECT username, description, timestamp ";
-    $sql .= "FROM comments ";
-    $sql .= "WHERE playerID = ?";
-    $stmt2=$db->prepare($sql);
-    $stmt2->bind_param('i',$playerID);
-    $stmt2->execute();
-    $stmt2->store_result();
-    $result2=$stmt2->bind_result($username, $description, $timestamp);
-
-    echo "<div class='comment-section'>";
-    while($stmt2->fetch()){
-      //echo(date("Y-m-d",$timestamp));
-
-      $date = date("Y-m-d", $timestamp);
-      echo "<div class='comment'>";
-      echo "<p><strong>$username</strong></p>";
-      echo "<p>$date</p>";
-      echo "<p>$description</p>";
-      echo "</div>";
-    }
-    echo "</div>";
+      	<form action="" method="post">
 
 
-    if (!empty($_SESSION['username'])) {
-      echo "<textarea name='comment' rows='4' columns='50' placeholder='Write a comment'></textarea>";
-      echo "<input type='submit' name='submit' value='Submit'/>";
-    } else {
-      echo "<p>Please login to add a comment</p>";
-    }
-    ?>
+
+        <form>
+          <?php
+          if (!empty($_SESSION['username'])) {
+            $user = [];
+            $user['username'] = $_SESSION['username'];
+            $user['playerID'] = $playerID;
+            if (isPlayerFollowing($user, $connection)) {
+              echo "<input type='submit' name='unfollow' value='Unfollow'/>";
+            } else {
+              echo "<input type='submit' name='follow' value='Follow'/>";
+            }
+          }
+          ?>
+        </form>
+        <div class="leftcontent">
+
+        	<h2>games</h2>
+        		<?php
+
+        			$query2="SELECT gameID,hometeam,guestteam,hometeamScore,guestteamScore,data FROM games WHERE hometeam=? OR guestteam=?";
+        			$stmt2=$db->prepare($query2);
+        			$stmt2->bind_param('ss',$playerteam,$playerteam);
+        			$stmt2->execute();
+        			$stmt2->store_result();
+        			$result2=$stmt2->bind_result($gameID,$hometeam,$guestTeam,$hometeamScore,$guestteamScore,$date);
+        			while($stmt2->fetch()){
+        				echo "<tr><a href='gamedetail.php?gameID=".$gameID."'>".$hometeam."    ".$hometeamScore."   :  ".$guestteamScore."    ".$guestTeam."</a></tr><br>";
+        			}
 
 
-  <form>
+        		?>
+        	</form>
+        
+        </div>
+        <div class="rightcontent">
+
+          <form action="playerDetail.php?playerID=<?php echo "$playerID&playerteam=$playerteam"?>" method="post">
+            <h2>Discussion</h2>
+
+            <?php
+            //Retrieve comments on page
+            $sql = "SELECT username, description, timestamp ";
+            $sql .= "FROM comments ";
+            $sql .= "WHERE playerID = ?";
+            $stmt2=$db->prepare($sql);
+            $stmt2->bind_param('i',$playerID);
+            $stmt2->execute();
+            $stmt2->store_result();
+            $result2=$stmt2->bind_result($username, $description, $timestamp);
+
+            echo "<div class='comment-section'>";
+            while($stmt2->fetch()){
+              //echo(date("Y-m-d",$timestamp));
+
+              $date = date("Y-m-d", $timestamp);
+              echo "<div class='comment'>";
+              echo "<p><strong>$username</strong></p>";
+              echo "<p>$date</p>";
+              echo "<p>$description</p>";
+              echo "</div>";
+            }
+            echo "</div>";
+
+
+            if (!empty($_SESSION['username'])) {
+              echo "<textarea name='comment' rows='4' columns='50' placeholder='Write a comment'></textarea>";
+              echo "<input type='submit' name='submit' value='Submit'/>";
+            } else {
+              echo "<p>Please login to add a comment</p>";
+            }
+            ?>
+
+
+       
+          </form>
+        </div>
+      </div>
 
     <?php
       mysqli_close($connection);

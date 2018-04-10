@@ -362,3 +362,13 @@ table.topplayer{
   cursor: pointer;
   background-color: #004885;
 }
+
+h1.playername{
+  display: inline-block;
+}
+
+.stattitle p{
+  display: inline-block;
+  color: white;
+  margin-left: 5px;  
+}
