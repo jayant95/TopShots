@@ -183,7 +183,7 @@ th.playerstat{
 }
 th.playername{
   width: 200px;
-
+  text-align: left;
 }
 
 ul.datelist{
@@ -194,6 +194,9 @@ ul.datelist{
 
 }
 
+td.playerstat{
+  text-align: center;
+}
 li.datelist{
   width: 30%;
   display: inline-block;
@@ -201,6 +204,29 @@ li.datelist{
   margin-right: 1%;
   text-align: center;
   border-bottom: 2px solid;
+}
+
+div.gamedetail{
+  position: relative;
+/*  */
+  width: 60%;
+  margin:0;
+  display: inline-block;
+  margin-right:10%;
+  padding-top:0;
+}
+
+div.gamecomment{
+  width: 25%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+h1.gamescore{
+  font-size: 1.2rem;
+  display: inline-block;
+  margin-bottom: 50px;
+  margin-top:30px;
 }
 
 table.games{
