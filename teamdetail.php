@@ -35,64 +35,76 @@
 
 
   	?>
+	<div class="stattitle">
 
-	<form action="" method="post">
+						<table>
 
-	<table>
+						<?php
 
-		<?php
+							while($stmt->fetch()){
+								echo "<h1>".$teamname."</h1>";
+				  				$name=$teamname;
+				  				echo "		<tr><th class='playerstat1'>Wins</th><th class='playerstat'>Losses</th><th class='playerstat'>w_pct</th><th class='playerstat'>efg_pct</th><th class='playerstat'>off_rating</th><th class='playerstat'>def_rating</th><th class='playerstat'>ast_pct</th><th class='playerstat'>ast_to</th></tr>";
+								echo "<tr><td class='playerstat'>  ".$wins."  </th><td class='playerstat'>  ".$losses."</th><td class='playerstat'>".$w_pct."  </th><td class='playerstat'>  ".$efg_pct."  </th><td class='playerstat'>  ".$off_rating."  </th><td class='playerstat'>  ".$def_rating."  </th><td class='playerstat'>  ".$ast_pct."  </th><td class='playerstat'>  ".$ast_to."</th></tr>";
+							}
+						?>
 
-			while($stmt->fetch()){
-				echo "<h1>".$teamname."</h1>";
-  				$name=$teamname;
-  				echo "		<tr><th>Team</th><th>Wins</th><th>Losses</th><th>w_pct</th><th>efg_pct</th><th>off_rating</th><th>def_rating</th><th>ast_pct</th><th>ast_to</th></tr>";
-				echo "<tr><th class='teamname'><a href='teamdetail.php?teamID=".$teamID."'>".$teamname." </a> </th><th>  ".$wins."  </th><th>  ".$losses."</th><th>".$w_pct."  </th><th>  ".$efg_pct."  </th><th>  ".$off_rating."  </th><th>  ".$def_rating."  </th><th>  ".$ast_pct."  </th><th>  ".$ast_to."</th></tr>";
-			}
-		?>
+					</table>
+	</div>
 
-	</table>
-
-	<h2>players</h2>
-
-	<table>
-
-		<tr><th>Player name</th><th>Age</th><th>Points</th><th>Assists</th><th>Rebounds</th><th>Play Time</th><th>Games played</th></tr>
-
-		<?php
-			$query2="SELECT id,name, team,age,points,assists,rebounds,minutes,gamesPlayed FROM players WHERE team=?";
-			$stmt2=$db->prepare($query2);
-			$stmt2->bind_param('s',$shortname);
-			$stmt2->execute();
-			$stmt2->store_result();
-			$result2=$stmt2->bind_result($playerID,$playername, $teamname,$age,$points,$assists,$rebounds,$minutes,$gamesPlayed);
-			while($stmt2->fetch()){
-				echo "<tr><th><a href='playerdetail.php?playerID=".$playerID."&playerteam=".$name."'>".$playername." </a> </th><th>  ".$age."  </th><th>  ".$points."  </th><th>  ".$assists."  </th><th>  ".$rebounds."  </th><th>  ".$minutes."  </th><th>  ".$gamesPlayed."</th></tr>";
-
-			}
-		?>
-
-	</table>
-
-	<h2>games</h2>
-	<table>
+    <div class="page-content">
 
 
-		<?php
 
-			$query3="SELECT gameID,hometeam,guestteam,hometeamScore,guestteamScore,data FROM games WHERE hometeam=? OR guestteam=?";
-			$stmt3=$db->prepare($query3);
-			$stmt3->bind_param('ss',$name,$name);
-			$stmt3->execute();
-			$stmt3->store_result();
-			$result3=$stmt3->bind_result($gameID,$hometeam,$guestTeam,$hometeamScore,$guestteamScore,$date);
-			while($stmt3->fetch()){
-				echo "<tr><a href='gamedetail.php?gameID=".$gameID."'>".$hometeam."    ".$hometeamScore."   :  ".$guestteamScore."    ".$guestTeam."</a></tr><br>";
-			}
+		<form action="" method="post">
+
+			<h2>Players</h2>
+			<div class="leftcontent">
+				
+
+				<table>
+
+					<tr><th class='playername'>Player name</th><th class='playerstat'>Age</th><th class='playerstat'>Points</th><th class='playerstat'>Assists</th><th class='playerstat'>Rebounds</th><th class='playerstat'>Play Time</th><th class='playerstat'>Games played</th></tr>
+
+					<?php
+						$query2="SELECT id,name, team,age,points,assists,rebounds,minutes,gamesPlayed FROM players WHERE team=?";
+						$stmt2=$db->prepare($query2);
+						$stmt2->bind_param('s',$shortname);
+						$stmt2->execute();
+						$stmt2->store_result();
+						$result2=$stmt2->bind_result($playerID,$playername, $teamname,$age,$points,$assists,$rebounds,$minutes,$gamesPlayed);
+						while($stmt2->fetch()){
+							echo "<tr><td><a href='playerdetail.php?playerID=".$playerID."&playerteam=".$name."'>".$playername." </a> </th><td class='playerstat'>  ".$age."  </th><td class='playerstat'>  ".$points."  </th><td class='playerstat'>  ".$assists."  </th><td class='playerstat'>  ".$rebounds."  </th><td class='playerstat'>  ".$minutes."  </th><td class='playerstat'>  ".$gamesPlayed."</th></tr>";
+
+						}
+					?>
+
+				</table>
+			</div>
+			<div class="rightcontent">
+
+				<h2>Games</h2>
+				<table>
 
 
-		?>
-	</table>
-	</form>
+					<?php
+
+						$query3="SELECT gameID,hometeam,guestteam,hometeamScore,guestteamScore,data FROM games WHERE hometeam=? OR guestteam=?";
+						$stmt3=$db->prepare($query3);
+						$stmt3->bind_param('ss',$name,$name);
+						$stmt3->execute();
+						$stmt3->store_result();
+						$result3=$stmt3->bind_result($gameID,$hometeam,$guestTeam,$hometeamScore,$guestteamScore,$date);
+						while($stmt3->fetch()){
+							echo "<tr><a href='gamedetail.php?gameID=".$gameID."'>".$hometeam."    ".$hometeamScore."   :  ".$guestteamScore."    ".$guestTeam."</a></tr><br>";
+						}
+
+
+					?>
+				</table>
+			</div>
+		</form>
+	</div>
   </body>
 
 </html>
