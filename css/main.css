@@ -399,7 +399,18 @@ input[type=submit]:hover {
   margin-left: 20px;
   padding:5px 20px; 
 }
+h1.allplayers{
+  margin-left: 37%;
+}
 
+h2.allplayers{
+  margin-left: 13%;
+}
+
+div.allplayers{
+
+  margin-left: 35%;
+}
 
 a.wholerank{
   text-align: left;

@@ -32,10 +32,10 @@
     <form action="" method="post">
 
 
-    <h1>Season Leaders</h1>
+    <h1 class="allplayers">Season Leaders</h1>
 
-    <div class="topplayer">
-      <h2>Points Per Game</h2>
+    <div class="allplayers">
+      <h2 class="allplayers">Points Per Game</h2>
       <table class="topplayer">
 
         <tr><th class="playername">Player</th><th class="playerstat">Points</th></tr>
