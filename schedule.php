@@ -31,31 +31,34 @@
 			exit;
 		}
 
+		$query="SELECT gameID,hometeam,guestteam,hometeamScore,guestteamScore,data FROM games WHERE data=?";
+		$stmt=$db->prepare($query);
+		$stmt->bind_param('s',$date);
+		$stmt->execute();
+		$stmt->store_result();
+		$result=$stmt->bind_result($gameID,$hometeam,$guestTeam,$hometeamScore,$guestteamScore,$date);
+
   	?>
+ 	<div class="page-content">
+		<form action="" method="post">
+			<h1>Schedule</h1>
+			<ul class="datelist">
+				<li class="datelist"><a href="schedule.php?date=2017-01-31">Last day</a></li>
+				<li class="datelist"><a href="schedule.php?date=2017-02-01">Today</a></li>
+				<li class="datelist"><a href="schedule.php?date=2017-02-02">Next day</a></li>
+			</ul>
 
-	<form action="" method="post">
-	<h1>Schedule</h1>
-	<ul>
-		<li><a href="schedule.php?date=2017-01-31">Last day</a></li>
-		<li><a href="schedule.php?date=2017-02-01">Today</a></li>
-		<li><a href="schedule.php?date=2017-02-02">Next day</a></li>
-	</ul>
+			<table class="games">
+				<?php
 
-	<table>
-		<?php
-			$query="SELECT gameID,hometeam,guestteam,hometeamScore,guestteamScore,data FROM games WHERE data=?";
-			$stmt=$db->prepare($query);
-			$stmt->bind_param('s',$date);
-			$stmt->execute();
-			$stmt->store_result();
-			$result=$stmt->bind_result($gameID,$hometeam,$guestTeam,$hometeamScore,$guestteamScore,$date);
-			while($stmt->fetch()){
-				echo "<tr><a href='gamedetail.php?gameID=".$gameID."'>".$hometeam."    ".$hometeamScore."   :  ".$guestteamScore."    ".$guestTeam."</a></tr><br>";
-			}
-		?>
+					while($stmt->fetch()){
+						echo "<tr class='games'><a class='games' href='gamedetail.php?gameID=".$gameID."'>".$hometeam."    ".$hometeamScore."   :  ".$guestteamScore."    ".$guestTeam."</a></tr><br>";
+					}
+				?>
 
-	</table>
-	</form>
+			</table>
+		</form>
+	</div>
   </body>
 
 </html>

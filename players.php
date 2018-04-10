@@ -26,27 +26,122 @@
     <?php
       require("includes/header.php");
     ?>
+  <div class="page-content">
+
+  	<form action="" method="post">
 
 
-	<form action="" method="post">
+   	<h1>Season Leaders</h1>
 
- 	<h1>Players</h1>
-	<table>
-		<tr><th>Player</th><th>Age</th><th>Team</th><th>Points</th><th>Assists</th><th>Rebounds</th></tr>
-		<?php
-			$query="SELECT players.id,players.name, players.team,players.age,players.points,players.assists,players.rebounds, teams.name, teams.shortname FROM players JOIN teams WHERE teams.shortname=players.team  ORDER BY points DESC";
-			$stmt=$db->prepare($query);
+    <div class="topplayer">
+      <h2>Points Per Game</h2>
+  	  <table class="topplayer">
 
-			$stmt->execute();
-			$stmt->store_result();
-			$result=$stmt->bind_result($id,$name, $team,$age,$points,$assists,$rebounds,$teamname,$shortname);
-			while($stmt->fetch()){
-				echo "<tr><th><a href='playerdetail.php?playerID=".$id."&playerteam=".$teamname."'>".$name." </a> </th><th>  ".$age."  </th><th>  ".$team."  </th><th>  ".$points."  </th><th>  ".$assists."  </th><th>  ".$rebounds."</th></tr>";
-			}
-		?>
+    		<tr><th class="playername">Player</th><th class="playerstat">Points</th></tr>
+    		<?php
+    			$query="SELECT players.id,players.name,players.points,teams.name FROM players JOIN teams WHERE teams.shortname=players.team  ORDER BY points DESC Limit 5";
+    			$stmt=$db->prepare($query);
 
-	</table>
-	</form>
+    			$stmt->execute();
+    			$stmt->store_result();
+    			$result=$stmt->bind_result($id,$name,$points,$teamname);
+    			while($stmt->fetch()){
+    				echo "<tr><td><a href='playerdetail.php?playerID=".$id."&playerteam=".$teamname."'>".$name." </a> </td><td class='team-rank'>  ".$points."  </td></tr>";
+    			}
+    		?>
+
+  	 </table>
+    </div>
+    <div class="topplayer">
+      <h2>Assistss Per Game</h2>
+      <table class="topplayer">
+
+        <tr><th class="playername">Player</th><th class="playerstat">Assists</th></tr>
+        <?php
+          $query2="SELECT players.id,players.name,players.assists,teams.name FROM players JOIN teams WHERE teams.shortname=players.team  ORDER BY assists DESC Limit 5";
+          $stmt2=$db->prepare($query2);
+
+          $stmt2->execute();
+          $stmt2->store_result();
+          $result2=$stmt2->bind_result($id,$name,$assists,$teamname);
+          while($stmt2->fetch()){
+            echo "<tr><td><a href='playerdetail.php?playerID=".$id."&playerteam=".$teamname."'>".$name." </a> </td><td class='team-rank'>  ".$assists."  </td></tr>";
+          }
+        ?>
+      </table>
+    </div>
+
+
+    <div class="topplayer">
+      <h2>Rebounds Per Game</h2>
+       <table class="topplayer">
+
+        <tr><th class="playername">Player</th><th class="playerstat">Rebounds</th></tr>
+        <?php
+          $query3="SELECT players.id,players.name,players.rebounds,teams.name FROM players JOIN teams WHERE teams.shortname=players.team  ORDER BY rebounds DESC Limit 5";
+          $stmt3=$db->prepare($query3);
+
+          $stmt3->execute();
+          $stmt3->store_result();
+          $result3=$stmt3->bind_result($id,$name,$rebounds,$teamname);
+          while($stmt3->fetch()){
+            echo "<tr><td><a href='playerdetail.php?playerID=".$id."&playerteam=".$teamname."'>".$name." </a> </td><td class='team-rank'>  ".$rebounds."  </td></tr>";
+          }
+        ?>
+
+      </table>
+    </div>
+
+
+    <div class="topplayer">
+      <h2>Steals Per Game</h2>
+
+      <table class="topplayer">
+
+        <tr><th class="playername">Player</th><th class="playerstat">Steals</th></tr>
+        <?php
+          $query3="SELECT players.id,players.name,players.steals,teams.name FROM players JOIN teams WHERE teams.shortname=players.team  ORDER BY steals DESC Limit 5";
+          $stmt3=$db->prepare($query3);
+
+          $stmt3->execute();
+          $stmt3->store_result();
+          $result3=$stmt3->bind_result($id,$name,$steals,$teamname);
+          while($stmt3->fetch()){
+            echo "<tr><td><a href='playerdetail.php?playerID=".$id."&playerteam=".$teamname."'>".$name." </a> </td><td class='team-rank'>  ".$steals."  </td></tr>";
+          }
+        ?>
+
+
+      </table>
+    </div>
+
+    <div class="topplayer">
+      <h2>Blocks Per Game</h2>
+
+
+      <table class="topplayer">
+
+           <tr><th class="playername">Player</th><th class="playerstat">Blocks</th></tr>
+        <?php
+          $query3="SELECT players.id,players.name,players.blocks,teams.name FROM players JOIN teams WHERE teams.shortname=players.team  ORDER BY blocks DESC Limit 5";
+          $stmt3=$db->prepare($query3);
+
+          $stmt3->execute();
+          $stmt3->store_result();
+          $result3=$stmt3->bind_result($id,$name,$blocks,$teamname);
+          while($stmt3->fetch()){
+            echo "<tr><td><a href='playerdetail.php?playerID=".$id."&playerteam=".$teamname."'>".$name." </a> </td><td class='team-rank'>  ".$blocks."  </td></tr>";
+          }
+        ?>
+        
+
+      </table>
+    </div>
+
+
+
+  	</form>
+  </div>
   </body>
 
 </html>
