@@ -8,8 +8,6 @@
   // Switch from HTTPS to HTTP
   HTTPStoHTTP();
 
-
-
 ?>
 
 <html>
@@ -31,15 +29,18 @@
             see who won and look at the stats for the game. You can also view your favourite players and see their season
             stats. We also offer the team rankings. You are also able to follow your favourite players and their twitter feed will be displayed on your homepage.
             <?php
+              // Only show this if the user isn't logged in
               if (empty($_SESSION['username'])) {
                 echo "Feel free to create an account <a class='text-links' href='register.php'>here</a> or <a class='text-links' href='login.php'>login</a> to discuss with fellow members about your favourite players and recent games and get started!";
               }
             ?>
           </p>
     <?php
+      // Create the following list and recent comment sections if the user is logged in
       if (!empty($_SESSION['username'])) {
         echo "<h2>Following</h2>";
         $user['username'] = $_SESSION['username'];
+        // Get the following list for the user
         $result = getFollowingList($user, $connection);
         echo "<ul class='following-list'>";
         if (mysqli_num_rows($result) > 0) {
@@ -61,9 +62,11 @@
 
         echo "<h2>Recent Comments</h2>";
         echo "<ul class='comment-list'>";
+        // Get the recent comments of the user
         $comments = getRecentCommentList($user, $connection);
         if (mysqli_num_rows($comments) > 0) {
           while ($comment = mysqli_fetch_assoc($comments)) {
+            // Display the comments in a list
             echo "<div class='comment'>";
             if ($comment['gameID'] != 0) {
               echo "<li><a href='gamedetail.php?gameID=".$comment['gameID']."'>".$comment['description']."</a></li>";
@@ -82,6 +85,7 @@
       echo "</div>";
 
     ?>
+    <!-- Sidebar for the NBA twitter feed -->
     <div class="twitter-sidebar">
       <a class="twitter-timeline" data-height="800" data-link-color="#E81C4F" href="https://twitter.com/NBA?ref_src=twsrc%5Etfw">Tweets by NBA</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </div>

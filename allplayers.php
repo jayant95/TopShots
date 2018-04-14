@@ -26,6 +26,7 @@
     <?php
       require("includes/header.php");
       $id=$_GET['id'];
+      // Check the id and see which whole rank was clicked
       $title='';
       if($id==1){
         $title="Points";
@@ -46,7 +47,7 @@
 
 
     <h1 class="allplayers">Season Leaders</h1>
-   
+
     <div class="allplayers">
       <?php
 
@@ -56,7 +57,7 @@
 
         <tr><th class="playername">Player</th><th class="playerstat">Points</th></tr>
         <?php
-          
+          // Get the whole list of the category
           getWholeRank($id, $db);
         ?>
 

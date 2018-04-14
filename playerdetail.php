@@ -7,6 +7,7 @@
   // Switch from HTTPS to HTTP
   HTTPStoHTTP();
 
+  // Get the URL variables from GET request
   $playerteam=$_GET['playerteam'];
   $playerID=$_GET['playerID'];
   $db=new mysqli('localhost','root','','topshots');
@@ -14,6 +15,7 @@
   echo '<p>Error: Could not connect to database.<br/> Please try again later. </p>';
   exit;
   }
+  // Get the player information (associated with player ID)
   $query="SELECT id,name, team,age,points,assists,rebounds,minutes,gamesPlayed,wins,losses,fgAttempted,fgPercentage,3PM,3PA,3Ppercentage,ftMade,ftAttempted,ftPercentage,offRebounds,defRebounds,turnovers,steals,blocks,fouls,plusMinus FROM players WHERE id=?";
   $stmt=$db->prepare($query);
   $stmt->bind_param('i',$playerID);
@@ -24,6 +26,7 @@
   // if form was submitted
   if (isset($_POST["submit"])) {
     $comment = !empty($_POST['comment']) ? $_POST['comment'] : "";
+    // Trim comment and insert it into DB
     if (!empty(trim($comment))) {
       $info = [];
       $info['username'] = $_SESSION['username'];
@@ -36,6 +39,7 @@
 
   }
 
+  // If follow button was submitted then update the DB
   if (isset($_POST["follow"])) {
     $info = [];
     $info['username'] = $_SESSION['username'];
@@ -48,13 +52,16 @@
         $info['playerName'] = $name['name'];
         $info['twitter'] = $name['twitter'];
     }
+    // Insert player into following list
     insertPlayerFollow($info, $connection);
   }
 
+  // If the unfollow button was clicked then update the DB
   if (isset($_POST["unfollow"])) {
     $info = [];
     $info['username'] = $_SESSION['username'];
     $info['playerID'] = $playerID;
+    // Remove player from following list
     removePlayerFollow($info, $connection);
   }
 
@@ -77,7 +84,7 @@
         <table>
 
           <?php
-
+            // Display the player stats
             while($stmt->fetch()){
               echo "<h1 class='playername'>".$playername."</h1><p>  <".$age.">  ".$team."</p>";
               echo "<tr><th>Points</th><th class='playerstat'>Assists</th><th class='playerstat'>Rebounds</th><th class='playerstat'>Play time</th><th class='playerstat'>fgAttempted</th><th class='playerstat'>fgPercentage</th><th class='playerstat'>3PM</th><th class='playerstat'>3PA</th><th class='playerstat'>3Percetage</th></tr>";
@@ -105,11 +112,12 @@
       	<form action="" method="post">
           <div class="leftcontent">
             <?php
-
+            // Display the follow/unfollow button if user is logged in
             if (!empty($_SESSION['username'])) {
               $user = [];
               $user['username'] = $_SESSION['username'];
               $user['playerID'] = $playerID;
+              // Check if user is currently following the player
               if (isPlayerFollowing($user, $connection)) {
                 echo "<input type='submit' name='unfollow' value='Unfollow'/>";
               } else {
@@ -121,7 +129,7 @@
 
         	<h2>games</h2>
         		<?php
-
+              // Show the recent games for that player
         			$query2="SELECT gameID,hometeam,guestteam,hometeamScore,guestteamScore,data FROM games WHERE hometeam=? OR guestteam=?";
         			$stmt2=$db->prepare($query2);
         			$stmt2->bind_param('ss',$playerteam,$playerteam);
@@ -156,8 +164,7 @@
 
             echo "<div class='comment-section'>";
             while($stmt2->fetch()){
-              //echo(date("Y-m-d",$timestamp));
-
+              // Format the date
               $date = date("Y-m-d", $timestamp);
               echo "<div class='comment'>";
               echo "<p><strong>$username</strong></p>";
@@ -167,7 +174,7 @@
             }
             echo "</div>";
 
-
+            // Only show comment input if user is logged in
             if (!empty($_SESSION['username'])) {
               echo "<textarea name='comment' rows='4' columns='50' placeholder='Write a comment'></textarea>";
               echo "<input type='submit' name='submit' value='Submit'/>";

@@ -39,6 +39,7 @@
 
     		<tr><th class="playername">Player</th><th class="playerstat">Points</th></tr>
     		<?php
+          // Get the top 5 points ranking
     			$query="SELECT players.id,players.name,players.points,teams.name FROM players JOIN teams WHERE teams.shortname=players.team  ORDER BY points DESC Limit 5";
     			$stmt=$db->prepare($query);
 
@@ -55,11 +56,12 @@
       <a class="wholerank" href="allplayers.php?id=1">-view all-</a>
     </div>
     <div class="topplayer">
-      <h2>Assistss Per Game</h2>
+      <h2>Assists Per Game</h2>
       <table class="topplayer">
 
         <tr><th class="playername">Player</th><th class="playerstat">Assists</th></tr>
         <?php
+          // Get the top 5 assists ranking
           $query2="SELECT players.id,players.name,players.assists,teams.name FROM players JOIN teams WHERE teams.shortname=players.team  ORDER BY assists DESC Limit 5";
           $stmt2=$db->prepare($query2);
 
@@ -81,6 +83,7 @@
 
         <tr><th class="playername">Player</th><th class="playerstat">Rebounds</th></tr>
         <?php
+          // Get the top 5 rebounds ranking
           $query3="SELECT players.id,players.name,players.rebounds,teams.name FROM players JOIN teams WHERE teams.shortname=players.team  ORDER BY rebounds DESC Limit 5";
           $stmt3=$db->prepare($query3);
 
@@ -104,6 +107,7 @@
 
         <tr><th class="playername">Player</th><th class="playerstat">Steals</th></tr>
         <?php
+          // Get the top 5 steals ranking
           $query3="SELECT players.id,players.name,players.steals,teams.name FROM players JOIN teams WHERE teams.shortname=players.team  ORDER BY steals DESC Limit 5";
           $stmt3=$db->prepare($query3);
 
@@ -128,6 +132,7 @@
 
            <tr><th class="playername">Player</th><th class="playerstat">Blocks</th></tr>
         <?php
+          // Get the top 5 blocks ranking
           $query3="SELECT players.id,players.name,players.blocks,teams.name FROM players JOIN teams WHERE teams.shortname=players.team  ORDER BY blocks DESC Limit 5";
           $stmt3=$db->prepare($query3);
 
@@ -138,7 +143,7 @@
             echo "<tr><td><a href='playerdetail.php?playerID=".$id."&playerteam=".$teamname."'>".$name." </a> </td><td class='team-rank'>  ".$blocks."  </td></tr>";
           }
         ?>
-        
+
 
       </table>
       <a class="wholerank" href="allplayers.php?id=5">-view all-</a>

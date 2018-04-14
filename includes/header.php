@@ -1,3 +1,4 @@
+<!-- Create the top banner for all the pages -->
 <div class="topBanner">
   <div class="innerBanner">
     <div class="title">

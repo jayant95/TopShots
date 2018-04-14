@@ -46,7 +46,7 @@
         <table class="conference-teams">
       		<tr><th>Team</th><th class="team-rank">Wins</th><th class="team-rank">Losses</th></tr>
       		<?php
-            // Get Eastern Conference
+            // Get WEstern Conference
             getTeamByConference("West", $db);
           ?>
 

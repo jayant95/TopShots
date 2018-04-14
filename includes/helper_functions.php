@@ -16,6 +16,7 @@
     }
   }
 
+  // Check validation errors and return the errors
   function validation($user) {
     $errors = [];
 
@@ -56,6 +57,7 @@
 
   }
 
+  // Login in the user by their username
   function logInUserByUsername($username, $password, $connection) {
     $errors = "";
     // Select the user from the database
@@ -75,6 +77,7 @@
         $_SESSION['username'] = $user['username'];
         $_SESSION['email'] = $user['email'];
         $_SESSION['last-login'] = time();
+        // Redirect to homepage after logging in
         header("Location: homepage.php");
       } else {
         $errors = "Incorrect password";
@@ -87,6 +90,7 @@
 
   }
 
+  // Check if email already exists and return errors if there are any
   function isExistingEmail($email, $connection) {
     $errors = "";
     // Check if email exists in database
@@ -105,6 +109,7 @@
     return $errors;
   }
 
+  // Check if username already exists and return errors if there are any
   function isExistingUsername($username, $connection) {
     $errors = "";
     // Check if username exists in database
@@ -123,6 +128,7 @@
     return $errors;
   }
 
+  // Register new user in the database
   function registernewUser($user, $connection) {
     // Create hashed password to store
     $hashed_password = password_hash($user['password'], PASSWORD_BCRYPT);
@@ -144,19 +150,20 @@
     // Check if successful
     if ($result) {
       echo "Your registration was successful";
+      // Redirect to homepage after registration is complete
       header("Location: homepage.php");
     } else {
       echo mysqli_error($connection);
     }
 
-//    mysqli_close($connection);
-
     // Assign session variables
     $_SESSION['username'] = $user['username'];
   }
 
+  // Add a new comment to the game details page
   function insertGameDetailComment($info, $connection) {
     // Insert new entry into the db
+    // Insert the gameID, username, description and timestamp
     $sql = "INSERT INTO comments ";
     $sql .= "(gameID, username, description, timestamp) ";
     $sql .= "VALUES (";
@@ -167,13 +174,12 @@
     $sql .= ")";
 
     $result = mysqli_query($connection, $sql);
-  //  mysqli_close($connection);
-
   }
 
-
+  // Add a new comment to the player details page
   function insertPlayerDetailComment($info, $connection) {
     // Insert new entry into the db
+    // Insert the playerID, username, description, timestamp and playerTeam
     $sql = "INSERT INTO comments ";
     $sql .= "(username, playerID, description, timestamp, playerTeam) ";
     $sql .= "VALUES (";
@@ -184,12 +190,12 @@
     $sql .= "'" . $info['playerTeam'] . "'";
     $sql .= ")";
     $result = mysqli_query($connection, $sql);
-  //  mysqli_close($connection);
-
   }
 
+  // Retrieve all the game comments from the specific gameID
   function retrieveGameComments($gameID, $connection) {
-    //  Retrieve comments from db
+    // Retrieve comments from db
+    // Get the username and comment
     $sql = "SELECT username, description ";
     $sql .= "FROM comments ";
     $sql .= "WHERE gameID = $gameID";
@@ -198,7 +204,7 @@
     return $result;
   }
 
-
+  // Check if user is already following player
   function isPlayerFollowing($info, $connection) {
     $isFollowing = false;
     // Check if player followed exists in database
@@ -213,13 +219,15 @@
       $isFollowing = false;
     }
     mysqli_free_result($result);
-    //mysqli_close($connection);
 
+    // Return a boolean
     return $isFollowing;
   }
 
+  // Insert a new player to the users following list
   function insertPlayerFollow($info, $connection) {
     // Insert new entry into the db
+    // Insert the twitter url also
     $sql = "INSERT INTO following ";
     $sql .= "(username, playername, playerid, playerTeam, twitter) ";
     $sql .= "VALUES (";
@@ -231,10 +239,9 @@
     $sql .= ")";
 
     $result = mysqli_query($connection, $sql);
-    //mysqli_close($connection);
-
   }
 
+  // Unfollow the player. Remove from database
   function removePlayerFollow($info, $connection) {
     // Delete entry from the db
     $sql = "DELETE FROM following ";
@@ -242,10 +249,9 @@
     $sql .= "AND playerid='" . $info['playerID'] . "' ";
 
     $result = mysqli_query($connection, $sql);
-    //mysqli_close($connection);
-
   }
 
+  // Get the name of the player and their twitter feed url
   function getPlayerNameAndTwitter($info, $connection) {
     $sql = "SELECT name, twitter ";
     $sql .= "FROM players ";
@@ -255,6 +261,7 @@
     return $result;
   }
 
+  // Retrieve the users following list
   function getFollowingList($info, $connection) {
     $sql = "SELECT playername, playerid, playerTeam, twitter ";
     $sql .= "FROM following ";
@@ -263,10 +270,8 @@
     return $result;
   }
 
+  // Retrive the 3 most recent comments from the user
   function getRecentCommentList($info, $connection) {
-    // SELECT * FROM (
-    //   SELECT * FROM comments ORDER BY commentID DESC LIMIT 3
-    // ) as r ORDER BY commentID
     $innersql = "SELECT * FROM comments ";
     $innersql .= "WHERE username='" . $info['username'] . "' ";
     $innersql .= "ORDER BY commentID DESC LIMIT 3";
@@ -278,6 +283,7 @@
     return $result;
   }
 
+  // Get the team list by conference (east, west)
   function getTeamByConference($conference, $db) {
     $query="SELECT ID,name, wins,losses FROM teams WHERE conference = ? ORDER BY wins DESC";
     $stmt=$db->prepare($query);
@@ -289,8 +295,10 @@
       echo "<tr><td><a href='teamdetail.php?teamID=".$teamID."'>".$teamname." </a> </td><td class='team-rank'>  ".$wins."  </td><td class='team-rank'>  ".$losses."</td></td>";
     }
   }
- function getWholeRank($id, $db) {
 
+  // Get the rank of the players
+ function getWholeRank($id, $db) {
+   // Get whole rank for assists, points, rebounds, steals and blocks
     if($id==1){
 
           $query="SELECT players.id,players.name,players.points,teams.name FROM players JOIN teams WHERE teams.shortname=players.team  ORDER BY points DESC";
@@ -345,28 +353,29 @@
         }
       }
 
-      function showGamesByDate($date,$db){
-          if($date=='2017-02-02'){
-            $query="SELECT gameID,hometeam,guestteam,hometeamScore,guestteamScore,data FROM games WHERE data=?";
-            $stmt=$db->prepare($query);
-            $stmt->bind_param('s',$date);
-            $stmt->execute();
-            $stmt->store_result();
-            $result=$stmt->bind_result($gameID,$hometeam,$guestTeam,$hometeamScore,$guestteamScore,$date);
-            while($stmt->fetch()){
-              echo "<tr class='games'><a class='games' href='gamedetail.php?gameID=".$gameID."'>".$hometeam."  : ".$guestTeam."</a></tr><br>";
-            }
-          }else{
-            $query="SELECT gameID,hometeam,guestteam,hometeamScore,guestteamScore,data FROM games WHERE data=?";
-            $stmt=$db->prepare($query);
-            $stmt->bind_param('s',$date);
-            $stmt->execute();
-            $stmt->store_result();
-            $result=$stmt->bind_result($gameID,$hometeam,$guestTeam,$hometeamScore,$guestteamScore,$date);
-            while($stmt->fetch()){
-              echo "<tr class='games'><a class='games' href='gamedetail.php?gameID=".$gameID."'>".$hometeam."    ".$hometeamScore."   :  ".$guestteamScore."    ".$guestTeam."</a></tr><br>";
-            }
-          }
+  // Show games by date. Echo out a table row
+  function showGamesByDate($date,$db){
+      if($date=='2017-02-02'){
+        $query="SELECT gameID,hometeam,guestteam,hometeamScore,guestteamScore,data FROM games WHERE data=?";
+        $stmt=$db->prepare($query);
+        $stmt->bind_param('s',$date);
+        $stmt->execute();
+        $stmt->store_result();
+        $result=$stmt->bind_result($gameID,$hometeam,$guestTeam,$hometeamScore,$guestteamScore,$date);
+        while($stmt->fetch()){
+          echo "<tr class='games'><a class='games' href='gamedetail.php?gameID=".$gameID."'>".$hometeam."  : ".$guestTeam."</a></tr><br>";
+        }
+      }else{
+        $query="SELECT gameID,hometeam,guestteam,hometeamScore,guestteamScore,data FROM games WHERE data=?";
+        $stmt=$db->prepare($query);
+        $stmt->bind_param('s',$date);
+        $stmt->execute();
+        $stmt->store_result();
+        $result=$stmt->bind_result($gameID,$hometeam,$guestTeam,$hometeamScore,$guestteamScore,$date);
+        while($stmt->fetch()){
+          echo "<tr class='games'><a class='games' href='gamedetail.php?gameID=".$gameID."'>".$hometeam."    ".$hometeamScore."   :  ".$guestteamScore."    ".$guestTeam."</a></tr><br>";
+        }
       }
+  }
 
 ?>

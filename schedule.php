@@ -20,7 +20,7 @@
     ?>
 
   	<?php
-
+      // Get the date from URL (GET request)
   		$date='';
   		if($_GET['date']!=null){
   			$date=$_GET['date'];
@@ -45,7 +45,7 @@
 			<table class="games">
 				<?php
 
-
+          // Show the games according to the date passed
 					showGamesByDate($date,$db);
 				?>
 

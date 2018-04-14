@@ -35,13 +35,19 @@
       $incomplete = true;
     }
 
+    // Check if the form is complete
     if (!$incomplete) {
+      // Check if the username exists
       $registeredUsername = isExistingUsername($user['username'], $connection);
+      // Check if the email already exists
       $registeredEmail = isExistingEmail($user['email'], $connection);
 
+      // If the email and username are both new
       if (!$registeredEmail && !$registeredUsername) {
+        // Register the new user
         registernewUser($user, $connection);
       } else {
+        // Store the errors to be displayed
         $errors[] = $registeredUsername;
         $errors[] = $registeredEmail;
       }
@@ -98,6 +104,7 @@
           'Golden State Warriors', 'Houston Rockets', 'Indiana Pacers', 'Los Angeles Clippers', 'Los Angeles Lakers', 'Memphis Grizzlies', 'Miami Heat', 'Milwaukee Bucks', 'Minnesota Timberwolves', 'New Orleans Pelicans',
           'New York Knicks', 'Oklahoma City Thunder', 'Orlando Magic', 'Philadelphia 76ers', 'Phoenix Suns', 'Portland Trail Blazers', 'Sacramento Kings', 'San Antonio Spurs', 'Toronto Raptors', 'Utah Jazz', 'Washington Wizards'];
 
+          // Create the dropdown for all NBA teams
           echo "<select class='register-input' name='favTeam'>";
           $i = 0;
           foreach ($teamVal as $opt) {
@@ -116,6 +123,7 @@
     </div>
 
     <?php
+      // Close the connection thats open
       mysqli_close($connection);
      ?>
 
